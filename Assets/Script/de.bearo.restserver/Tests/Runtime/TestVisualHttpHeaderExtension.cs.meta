@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: c28ee39ae0a2445b9390668829642ec6
+timeCreated: 1664712236
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/TestVisualHttpHeaderExtension.cs
+  uploadId: 751948

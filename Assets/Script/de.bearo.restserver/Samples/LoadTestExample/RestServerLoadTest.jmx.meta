@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a790e8c4c5c524390a756a290247ad8f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/LoadTestExample/RestServerLoadTest.jmx
+  uploadId: 751948

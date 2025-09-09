@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2d0d53a413672ac43b6ec9b0970f815e
+PackageManifestImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/package.json
+  uploadId: 751948

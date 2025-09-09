@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: dbca6fe515604a30b4d1ea7d1e358764
+timeCreated: 1650642342
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/Helper/AccessLogDTO.cs
+  uploadId: 751948

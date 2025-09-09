@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 72bedae00c854b289f2e4d3f98d87830
+timeCreated: 1720238463
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/AdvancedCustomization.cs
+  uploadId: 751948

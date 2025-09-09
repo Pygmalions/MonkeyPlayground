@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wood_nes_0: 126012355558596703
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

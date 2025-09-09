@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a2da80021c8ad0248805aa22fbf8d161
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/SimpleVSExample/SimpleVSExample.unity
+  uploadId: 751948

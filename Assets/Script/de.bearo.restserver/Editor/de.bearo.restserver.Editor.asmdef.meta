@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 5da45b3a14df46c398ffdeab019f0e3e
+timeCreated: 1653741207
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/de.bearo.restserver.Editor.asmdef
+  uploadId: 751948

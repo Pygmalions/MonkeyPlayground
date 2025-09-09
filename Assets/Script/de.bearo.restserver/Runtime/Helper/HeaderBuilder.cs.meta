@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 6379f7f0b7dc447491fe8b33d623ce2a
+timeCreated: 1648361605
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/Helper/HeaderBuilder.cs
+  uploadId: 751948

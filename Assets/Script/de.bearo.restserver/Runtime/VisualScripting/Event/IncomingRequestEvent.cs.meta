@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: fcf2cdb4dd5547838b9e26a796e7edac
+timeCreated: 1654194983
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/VisualScripting/Event/IncomingRequestEvent.cs
+  uploadId: 751948

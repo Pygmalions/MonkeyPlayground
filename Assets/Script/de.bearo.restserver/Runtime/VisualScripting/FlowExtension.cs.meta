@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 70ce17c4b3494b30849cc270f2e75d2f
+timeCreated: 1654347466
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/VisualScripting/FlowExtension.cs
+  uploadId: 751948

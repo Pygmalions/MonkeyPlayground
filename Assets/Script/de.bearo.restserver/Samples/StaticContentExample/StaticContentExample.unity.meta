@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4af651aa5d9764d4e866fb1d4047e300
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/StaticContentExample/StaticContentExample.unity
+  uploadId: 751948

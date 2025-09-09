@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 214ef0aa1db546e398dd7d0738d72f8f
+timeCreated: 1668943891
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/TestSimpleMFDParser.cs
+  uploadId: 751948

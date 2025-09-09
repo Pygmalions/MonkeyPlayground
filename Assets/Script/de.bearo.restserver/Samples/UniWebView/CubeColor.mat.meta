@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f40ab8c03732e4e63962785dcadab69f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/UniWebView/CubeColor.mat
+  uploadId: 751948

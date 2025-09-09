@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b677e9629346c49c3be44e8073ca7990
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/StaticContentExample/sample-app.zip.bytes
+  uploadId: 751948

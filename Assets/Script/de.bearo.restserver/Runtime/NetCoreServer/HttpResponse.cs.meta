@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0b9c6349279e1ca42b879eb4254ceb4f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/NetCoreServer/HttpResponse.cs
+  uploadId: 751948

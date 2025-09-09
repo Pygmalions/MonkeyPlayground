@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a154a86049ee8b447abd27f1fdef8635
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/RESTExample/RESTExample.unity
+  uploadId: 751948

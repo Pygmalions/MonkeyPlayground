@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 44dd58b0453d44fa0ab6764d960a5cd0
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/PathParamExample/PPExample.unity
+  uploadId: 751948

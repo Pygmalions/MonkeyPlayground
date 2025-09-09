@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 99e6373fe76f4c38b8533dc4c3a5f724
+timeCreated: 1638619870
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/ThreadingHelper.cs
+  uploadId: 751948

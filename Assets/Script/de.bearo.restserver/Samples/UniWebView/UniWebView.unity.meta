@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3f2cb1bcf271f4d558857dab81a2056d
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/UniWebView/UniWebView.unity
+  uploadId: 751948

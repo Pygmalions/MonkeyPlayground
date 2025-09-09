@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 87660be17fa54f6b9fb152c08ad27ea3
+timeCreated: 1691420019
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/Helper/CICD.cs
+  uploadId: 751948

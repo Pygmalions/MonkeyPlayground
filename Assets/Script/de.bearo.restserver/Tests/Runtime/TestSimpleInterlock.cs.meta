@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: b679ee77211b41f3b92d6977545a5317
+timeCreated: 1664712044
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/TestSimpleInterlock.cs
+  uploadId: 751948

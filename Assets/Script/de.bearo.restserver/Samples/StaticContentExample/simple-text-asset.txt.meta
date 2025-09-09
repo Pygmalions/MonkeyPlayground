@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 6d9b6764a54d420d901e076714b078f0
+timeCreated: 1663786336
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/StaticContentExample/simple-text-asset.txt
+  uploadId: 751948

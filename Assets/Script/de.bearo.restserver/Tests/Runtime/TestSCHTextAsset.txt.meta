@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: fc3c8ac0e5f54525b4ae7c9804697ccd
+timeCreated: 1664679639
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/TestSCHTextAsset.txt
+  uploadId: 751948

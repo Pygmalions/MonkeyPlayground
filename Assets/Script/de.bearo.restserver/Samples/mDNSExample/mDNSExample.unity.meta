@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 78fcab6249d894f908110ef9f9675a46
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/mDNSExample/mDNSExample.unity
+  uploadId: 751948

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3871bc5aaf124c44da4afa11be938a19
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/Runtime.asmdef
+  uploadId: 751948

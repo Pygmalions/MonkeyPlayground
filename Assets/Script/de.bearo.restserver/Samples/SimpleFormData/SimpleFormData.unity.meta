@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d7be1e08b72384d4c9c1b0f04c73096f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/SimpleFormData/SimpleFormData.unity
+  uploadId: 751948

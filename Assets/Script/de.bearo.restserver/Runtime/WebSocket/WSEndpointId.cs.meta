@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: fb8a6d0192b6481d9e4e5456abc26912
+timeCreated: 1672231706
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/WebSocket/WSEndpointId.cs
+  uploadId: 751948

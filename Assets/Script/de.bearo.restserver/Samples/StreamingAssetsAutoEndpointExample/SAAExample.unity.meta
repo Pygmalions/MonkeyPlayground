@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 456a4720422a2463fbf663a7f2bfd2dc
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/StreamingAssetsAutoEndpointExample/SAAExample.unity
+  uploadId: 751948

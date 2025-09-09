@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9f27cfee9ba5a4be7b21502a725f04b4
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/ReverseProxyExample/ReverseProxyExample.unity
+  uploadId: 751948

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6304682d4d72810489cda86ce6e55af6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/InterlockExample/TOSphere4.mat
+  uploadId: 751948

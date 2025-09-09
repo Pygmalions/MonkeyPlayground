@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1a628fd81e54f8747a7ab6eedd686005
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/VisualScriptingTestScene.unity
+  uploadId: 751948

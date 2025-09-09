@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 8e7f6f82d64444c296723f87ce4120ff
+timeCreated: 1648307442
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/TestUnityNetHelper.cs
+  uploadId: 751948

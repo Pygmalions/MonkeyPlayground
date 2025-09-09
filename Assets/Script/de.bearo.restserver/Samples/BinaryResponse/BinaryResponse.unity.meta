@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bd788df697ca8f747bc17bda25193b95
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/BinaryResponse/BinaryResponse.unity
+  uploadId: 751948

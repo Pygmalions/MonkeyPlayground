@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: a30c19ded55f4919bf330f481488213f
+timeCreated: 1654400915
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/VisualScripting/CommonDescriptor.cs
+  uploadId: 751948

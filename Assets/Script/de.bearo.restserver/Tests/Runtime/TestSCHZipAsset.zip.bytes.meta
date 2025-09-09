@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4882a04df49c849e8bb767c5599a0e41
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Tests/Runtime/TestSCHZipAsset.zip.bytes
+  uploadId: 751948

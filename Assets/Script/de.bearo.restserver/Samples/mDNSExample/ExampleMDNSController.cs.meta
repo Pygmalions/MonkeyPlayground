@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: c615fd5031484d7fa4d09323b76a7578
+timeCreated: 1691835414
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/mDNSExample/ExampleMDNSController.cs
+  uploadId: 751948

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: af67fe12088944e72bb3aac7a235a0c2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/ItchIOOAuthExample/ItchIOOauthLinker.cs
+  uploadId: 751948

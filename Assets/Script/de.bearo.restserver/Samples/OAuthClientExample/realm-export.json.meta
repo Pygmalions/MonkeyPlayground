@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 04e39ac3acb64ff5b413e792c9ffebee
+timeCreated: 1714292224
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/OAuthClientExample/realm-export.json
+  uploadId: 751948

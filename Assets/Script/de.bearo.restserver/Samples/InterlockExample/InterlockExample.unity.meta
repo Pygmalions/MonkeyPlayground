@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 33947cb458073c143b01c5791a1fe398
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/InterlockExample/InterlockExample.unity
+  uploadId: 751948

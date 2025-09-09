@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cf1111440831e4003b739a7932c86867
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Samples/MethodAutoEndpointExample/MethodAutoEndpointExample.unity
+  uploadId: 751948
