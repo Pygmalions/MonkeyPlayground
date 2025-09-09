@@ -3,7 +3,8 @@ using UnityEngine;
 public abstract class MonkeyState : EntityState
 {
     protected Monkey monkey;
-    
+
+    protected bool isMoveByFunc = false;
 
     public MonkeyState(Monkey monkey,StateMachine stateMachine, string animBoolName):base(stateMachine,animBoolName)
     {

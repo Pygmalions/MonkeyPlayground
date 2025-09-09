@@ -11,7 +11,8 @@ public class Monkey : Entity
 
     public Monkey_IdleState idleState{ get; private set; }
     public Monkey_MoveState moveState{ get; private set; }
-
+    
+    public bool isUnderCoroutineControl = false;
     
     private List<Box> interactableBoxes = new List<Box>(); // 存储所有在交互范围内的箱子
     private Box carriedBox; // 当前正在搬运的箱子
@@ -45,9 +46,11 @@ public class Monkey : Entity
 
     protected override void Update()
     {
-        base.Update();
-        
-        HandleInteraction();
+        if (! isUnderCoroutineControl)
+        {
+            stateMachine.UpdateActiveState();
+            HandleInteraction();
+        }
     }   
     
     private void HandleInteraction()
@@ -124,18 +127,18 @@ public class Monkey : Entity
         Box closestBox = GetClosestInteractableBox();
         ActionResult result;
         
-        if (carriedBox == null)
+        if (closestBox == null) 
+        {
+            result = ActionResult.Failure("附近没有箱子");
+        }
+        else if (carriedBox == null)
         {
             carriedBox = closestBox;
             result = carriedBox.Pickup(this);
         }
-        else if (carriedBox != null)
-        {
-            result = ActionResult.Failure("已经搬运了箱子");
-        }
         else
         {
-            result = ActionResult.Failure("附近没有箱子");
+            result = ActionResult.Failure("已经搬运了箱子");
         }
 
         return result;
@@ -148,40 +151,51 @@ public class Monkey : Entity
 
     private IEnumerator MoveHorizontallyCoroutine(float distance, Action<ActionResult> onComplete)
     {
+        isUnderCoroutineControl = true; // 暂停状态机和玩家输入
+        anim.SetBool("move", true);     // 直接命令Animator播放“行走”动画
+        anim.SetBool("idle", false);    // 确保“站立”动画被关闭
+
         float direction = Mathf.Sign(distance);
-        Vector3 startPosition = transform.position;
-        Vector3 targetPosition = startPosition + new Vector3(distance, 0, 0);
-        
+        Vector3 targetPosition = transform.position + new Vector3(distance, 0, 0);
         Collider2D monkeyCollider = GetComponent<Collider2D>();
         float raycastDistance = monkeyCollider.bounds.size.x * 0.5f + 0.1f;
 
-        // --- 核心移动循环 ---
-        while (Vector3.Distance(new Vector3(transform.position.x, 0), new Vector3(targetPosition.x, 0)) > 0.05f)
+        while (Mathf.Abs(targetPosition.x - transform.position.x) > 0.05f)
         {
-            // a. 障碍物检测
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(direction, 0), raycastDistance, obstacleLayer);
+            Vector2 rayOrigin = new Vector2(transform.position.x, monkeyCollider.bounds.center.y);
+            Vector2 rayDirection = new Vector2(direction, 0);
+            Debug.DrawRay(rayOrigin, rayDirection * raycastDistance, Color.red);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, raycastDistance, obstacleLayer);
             if (hit.collider != null)
             {
-                SetVelocity(0, rb.linearVelocity.y); // 立刻停止
-                onComplete?.Invoke(ActionResult.Failure($"移动被阻挡，最终位置: {transform.position}"));
+                Debug.Log("存在障碍物: " + hit.collider.name);
+                SetVelocity(0, rb.linearVelocity.y);
+                
+                isUnderCoroutineControl = false;      // 恢复状态机和玩家输入
+                anim.SetBool("move", false);          // 停止“行走”动画
+                stateMachine.ChangeState(idleState); // 确保状态机回到Idle状态
+                
+                onComplete?.Invoke(ActionResult.Failure($"移动被障碍物 {hit.collider.name} 阻挡"));
                 yield break;
             }
 
-            // b. 移动
             SetVelocity(movespeed * direction, rb.linearVelocity.y);
 
-            // c. 防止过冲
             if ((direction > 0 && transform.position.x > targetPosition.x) || (direction < 0 && transform.position.x < targetPosition.x))
             {
                 break;
             }
-            
-            yield return null; // 等待下一帧
+            yield return null;
         }
 
-        // --- 收尾工作 ---
+        SetVelocity(0, rb.linearVelocity.y);
         transform.position = new Vector3(targetPosition.x, transform.position.y, transform.position.z);
-        SetVelocity(0, rb.linearVelocity.y); // 确保完全停下
+        
+        isUnderCoroutineControl = false;      // 恢复状态机和玩家输入
+        anim.SetBool("move", false);          // 停止“行走”动画
+        stateMachine.ChangeState(idleState); // 确保状态机回到Idle状态
+
         onComplete?.Invoke(ActionResult.Success("移动成功完成"));
     }
     

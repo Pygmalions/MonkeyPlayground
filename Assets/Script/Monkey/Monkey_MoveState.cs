@@ -10,7 +10,7 @@ public class Monkey_MoveState : MonkeyState
     {
         base.Update();
         
-        if (monkey.moveInput.x ==0)
+        if (monkey.moveInput.x == 0)
             stateMachine.ChangeState(monkey.idleState);
         
         monkey.SetVelocity(monkey.moveInput.x * monkey.movespeed, rb.linearVelocity.y);
