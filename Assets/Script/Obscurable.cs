@@ -22,7 +22,7 @@ public class Obscurable : MonoBehaviour
 
     private void Awake()
     {
-        playerTransform = FindObjectOfType<Monkey>().transform;
+        playerTransform = Object.FindFirstObjectByType<Monkey>().transform;
 
         rb = GetComponent<Rigidbody2D>();
         if (rb != null)
