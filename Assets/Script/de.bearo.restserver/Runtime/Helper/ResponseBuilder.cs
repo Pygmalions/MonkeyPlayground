@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using RestServer.NetCoreServer;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace RestServer.Helper {
@@ -42,7 +43,7 @@ namespace RestServer.Helper {
                 _header.withSetIfNotExists(HttpHeader.CONTENT_TYPE, MimeType.APPLICATION_JSON_UTF_8);
             }
 
-            _body = new ResponseBuilderBodyHelper(JsonUtility.ToJson(obj));
+            _body = new ResponseBuilderBodyHelper(JsonConvert.SerializeObject(obj));
             return this;
         }
 
