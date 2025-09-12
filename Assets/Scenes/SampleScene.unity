@@ -4416,8 +4416,8 @@ GameObject:
   - component: {fileID: 1412833696}
   - component: {fileID: 1412833695}
   - component: {fileID: 1412833694}
-  - component: {fileID: 1412833700}
-  - component: {fileID: 1412833701}
+  - component: {fileID: 1412833702}
+  - component: {fileID: 1412833703}
   m_Layer: 8
   m_Name: Box_small
   m_TagString: Untagged
@@ -4541,7 +4541,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 838941525, guid: da2328d8242a98d48bcfe7dc205592c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4562,13 +4562,13 @@ Transform:
   m_GameObject: {fileID: 1412833693}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.57, y: 0.5, z: 0}
+  m_LocalPosition: {x: 1.53, y: 0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1412833700
+--- !u!61 &1412833702
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4602,7 +4602,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4612,9 +4612,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 0.5}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &1412833701
+--- !u!114 &1412833703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4626,6 +4626,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facfd27e61f94089b62e84b9e4f269b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Box
+  itemDescription: 
+  itemFunctions: []
+  isClimbable: 1
 --- !u!1 &1542487394
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,7 +4720,6 @@ GameObject:
   - component: {fileID: 1546928305}
   - component: {fileID: 1546928306}
   - component: {fileID: 1546928309}
-  - component: {fileID: 1546928310}
   - component: {fileID: 1546928311}
   - component: {fileID: 1546928313}
   - component: {fileID: 1546928312}
@@ -4836,20 +4839,6 @@ MonoBehaviour:
   respectUnityDisable: 1
   _debugLog: 0
   forceAccessLog: 0
---- !u!114 &1546928310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1546928301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2de7af4b003428f419aaca0e40580594, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  server: {fileID: 1546928309}
-  monkey: {fileID: 1546928311}
 --- !u!114 &1546928311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4863,7 +4852,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monkeyName: Monkey
-  holdingItem: {fileID: 0}
+  interactionwidth: 1.5
+  interactionheight: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  holdingBox: {fileID: 0}
 --- !u!114 &1546928312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4878,7 +4872,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monkey: {fileID: 1546928311}
   monkeyMovement: {fileID: 1546928313}
-  velocity: 0.2
 --- !u!114 &1546928313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5140,8 +5133,8 @@ GameObject:
   - component: {fileID: 1807629075}
   - component: {fileID: 1807629074}
   - component: {fileID: 1807629073}
-  - component: {fileID: 1807629077}
-  - component: {fileID: 1807629078}
+  - component: {fileID: 1807629079}
+  - component: {fileID: 1807629080}
   m_Layer: 8
   m_Name: Box_big
   m_TagString: Untagged
@@ -5292,7 +5285,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1807629077
+--- !u!61 &1807629079
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5326,7 +5319,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5336,9 +5329,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5, y: 0.5}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &1807629078
+--- !u!114 &1807629080
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5350,6 +5343,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facfd27e61f94089b62e84b9e4f269b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Box
+  itemDescription: 
+  itemFunctions: []
+  isClimbable: 1
 --- !u!1 &1875165368
 GameObject:
   m_ObjectHideFlags: 0
@@ -5678,16 +5675,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a13a03c55984fd2b7ac934bea28048b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Banana
+  itemDescription: A delicious banana. The goal of this game is to move the monkey
+    to get a banana.
+  itemFunctions: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 619394802}
   - {fileID: 1271911556}
+  - {fileID: 53129759}
   - {fileID: 1102318385}
   - {fileID: 1546928303}
   - {fileID: 119731717}
-  - {fileID: 53129759}
   - {fileID: 1412833697}
   - {fileID: 1807629076}
   - {fileID: 2088862101}

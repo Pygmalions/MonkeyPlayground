@@ -14,6 +14,8 @@ namespace MonkeyPlayground.Components
         [SerializeField] public float velocity = 1.0f;
 
         private bool _isFacingRight = true;
+        
+        public bool IsFacingRight => _isFacingRight;
 
         private Animator _animator;
 
@@ -99,7 +101,7 @@ namespace MonkeyPlayground.Components
             void SetVelocity(float xVelocity, float yVelocity)
             {
                 _rigidBody.linearVelocity = new Vector2(xVelocity, yVelocity);
-                if ((xVelocity > 0 && _isFacingRight) || (xVelocity < 0 && !_isFacingRight))
+                if ((xVelocity >= 0 && _isFacingRight) || (xVelocity <= 0 && !_isFacingRight))
                     return;
                 transform.Rotate(0, 180, 0);
                 _isFacingRight = !_isFacingRight;

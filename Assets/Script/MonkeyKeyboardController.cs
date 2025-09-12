@@ -1,5 +1,6 @@
 using MonkeyPlayground.Components;
 using MonkeyPlayground.Objects;
+using MonkeyPlayground.Data.Actions;
 using UnityEngine;
 
 namespace MonkeyPlayground
@@ -13,37 +14,37 @@ namespace MonkeyPlayground
         /// Monkey for this keyboard controller to control.
         /// </summary>
         public ObjectMovementController monkeyMovement;
-
-        public float velocity = 0.2f;
+        
+        private Monkey _monkey;
+        private ObjectMovementController _movementController;
+        
+        private void Awake()
+        {
+            _monkey = GetComponent<Monkey>();
+            _movementController = GetComponent<ObjectMovementController>();
+        }
     
         private void Update()
         {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            {
-                monkeyMovement.MoveRelatively(-velocity, null);
-            }
-            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            {
-                monkeyMovement.MoveRelatively(velocity, null);
-            }
-            else
-            {
-                // Currently there is no method to stop the target.
-            }
-        
+            // if (_monkey.ongoingAction != null) 
+            //     return;
+
+            var horizontal = Input.GetAxis("Horizontal");
+            _movementController.MoveRelatively(horizontal, null);
+
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // Todo: Make the monkey climb.
+                _monkey.AssignAction(new MonkeyClimbAction { Id = 0 });
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {
-                if (monkey.holdingItem == null)
+                if (_monkey.holdingBox == null)
                 {
-                    // Todo: Make the monkey pick up the nearest item.
+                    _monkey.AssignAction(new MonkeyGrabAction { Id = 0 });
                 }
                 else
                 {
-                    // Todo: Make the monkey drop the current item.
+                    _monkey.AssignAction(new MonkeyDropAction { Id = 0 });
                 }
             }
         }

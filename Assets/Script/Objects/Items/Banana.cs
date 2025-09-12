@@ -1,10 +1,14 @@
-namespace MonkeyPlayground.Objects.Items;
+using UnityEngine;
 
-public class Banana : Item
+namespace MonkeyPlayground.Objects.Items
 {
-    public Banana()
+
+    public class Banana : Item
     {
-        itemName = "Banana";
-        itemDescription = "A delicious banana. The gaol of this game is to move the monkey to get a banana.";
+        public Banana()
+        {
+            itemName = "Banana";
+            itemDescription = "A delicious banana. The goal of this game is to move the monkey to get a banana.";
+        }
     }
 }
