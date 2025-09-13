@@ -10,6 +10,11 @@ namespace MonkeyPlayground.Data
         public required string Name { get; init; }
 
         /// <summary>
+        /// Unique identifier of this item.
+        /// </summary>
+        public required int Id { get; init; }
+        
+        /// <summary>
         /// Description of this item.
         /// </summary>
         public required string Description { get; init; }
