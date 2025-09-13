@@ -83,8 +83,14 @@ namespace MonkeyPlayground
             {
                 IsCompleted = false,
                 Monkey = monkey.GenerateData(),
-                Items = DiscoveredItems.Select(item => item.GenerateData()).ToArray(),
-                Floors = DiscoveredFloors.Select(floor => floor.GenerateData()).ToArray()
+                Items = DiscoveredItems
+                    .Select(item => item.GenerateData())
+                    .OrderBy(data => data.Id)
+                    .ToArray(),
+                Floors = DiscoveredFloors
+                    .Select(floor => floor.GenerateData())
+                    .OrderBy(data => data.Y)
+                    .ToArray()
             };
         }
 
