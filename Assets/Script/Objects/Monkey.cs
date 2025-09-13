@@ -48,7 +48,7 @@ namespace MonkeyPlayground.Objects
                 Name = monkeyName,
                 Position = _latestPosition,
                 Size = _latestSize,
-                HoldingItem = holdingBox.GenerateData(),
+                HoldingItem = holdingBox?.GenerateData(),
                 OngoingAction = ongoingAction
             };
         }
