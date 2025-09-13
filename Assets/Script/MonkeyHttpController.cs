@@ -22,6 +22,11 @@ namespace MonkeyPlayground
         /// </summary>
         [Tooltip("The monkey controlled by this controller.")]
         public Monkey monkey;
+        
+        public string sceneName = "Normal Scene";
+        
+        [Multiline(int.MaxValue)]
+        public string sceneDescription = "This is a classical monkey-banana problem.";
 
         public Item[] DiscoveredItems { get; private set; }
 
@@ -36,15 +41,26 @@ namespace MonkeyPlayground
             DiscoveredFloors = FindObjectsByType<Floor>(FindObjectsSortMode.None);
         }
 
+        private void Reset()
+        {
+            server = GetComponent<RestServer.RestServer>();
+            monkey = GetComponent<Monkey>();
+        }
+
         private void Start()
         {
             ScanPerceptibleObjects();
 
-            ThreadingHelper.Instance.ThreadingMillisecondsTimeout = 2000000;
-
             server.EndpointCollection.RegisterEndpoint(HttpMethod.GET, "/scene/status",
                 request => { request.CreateResponse().BodyJson(GetSceneData()).SendAsync(); });
 
+            server.EndpointCollection.RegisterEndpoint(HttpMethod.GET, "/scene/description",
+                request => { request.CreateResponse().BodyJson(new
+                {
+                    Name = sceneName,
+                    Description = sceneDescription
+                }).SendAsync(); });
+            
             server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, "/monkey/move", request =>
             {
                 var stringPosition = request.QueryParametersDict["position"].FirstOrDefault();
