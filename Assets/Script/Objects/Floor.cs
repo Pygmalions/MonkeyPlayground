@@ -1,13 +1,14 @@
 using MonkeyPlayground.Data;
 using UnityEngine;
 
-namespace MonkeyPlayground.Objects;
-
-[DisallowMultipleComponent]
-public class Floor : PerceptibleObject<FloorData>
+namespace MonkeyPlayground.Objects
 {
-    protected override FloorData OnGenerateData()
+    [DisallowMultipleComponent]
+    public class Floor : PerceptibleObject<FloorData>
     {
-        return new FloorData(transform);
+        protected override FloorData OnGenerateData()
+        {
+            return new FloorData(transform);
+        }
     }
 }
