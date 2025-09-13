@@ -418,6 +418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 339199478}
   - component: {fileID: 339199479}
+  - component: {fileID: 339199480}
   m_Layer: 6
   m_Name: Floor_1
   m_TagString: Untagged
@@ -486,6 +487,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.98}
   m_EdgeRadius: 0
+--- !u!114 &339199480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339199477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75de4fb1cf504471be2843e6e31aa895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &355003897
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +805,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07968116, y: 5.3278503, z: 11.087362}
+  m_LocalPosition: {x: 0.42031884, y: 5.3278503, z: 11.087362}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1100,6 +1113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 999423009}
   - component: {fileID: 999423010}
+  - component: {fileID: 999423011}
   m_Layer: 6
   m_Name: Floor_0
   m_TagString: Untagged
@@ -1168,6 +1182,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.98}
   m_EdgeRadius: 0
+--- !u!114 &999423011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999423008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75de4fb1cf504471be2843e6e31aa895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1037152156
 GameObject:
   m_ObjectHideFlags: 0
@@ -4304,7 +4330,7 @@ Transform:
   m_GameObject: {fileID: 1365935262}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07968116, y: 5.3278503, z: 11.087362}
+  m_LocalPosition: {x: 0.42031884, y: 5.3278503, z: 11.087362}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4629,6 +4655,7 @@ MonoBehaviour:
   itemName: Box
   itemDescription: 
   itemFunctions: []
+  itemId: 0
   isClimbable: 1
 --- !u!1 &1542487394
 GameObject:
@@ -4640,6 +4667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1542487395}
   - component: {fileID: 1542487396}
+  - component: {fileID: 1542487397}
   m_Layer: 6
   m_Name: Floor_2
   m_TagString: Untagged
@@ -4708,6 +4736,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.98}
   m_EdgeRadius: 0
+--- !u!114 &1542487397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542487394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75de4fb1cf504471be2843e6e31aa895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1546928301
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,6 +4765,7 @@ GameObject:
   - component: {fileID: 1546928312}
   - component: {fileID: 1546928315}
   - component: {fileID: 1546928314}
+  - component: {fileID: 1546928316}
   m_Layer: 0
   m_Name: Monkey
   m_TagString: Player
@@ -4741,7 +4782,7 @@ Transform:
   m_GameObject: {fileID: 1546928301}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4818,7 +4859,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.98, y: 0.99}
+  m_Size: {x: 0.95, y: 0.95}
   m_EdgeRadius: 0
 --- !u!114 &1546928309
 MonoBehaviour:
@@ -4856,7 +4897,7 @@ MonoBehaviour:
   interactionheight: 0.5
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   holdingBox: {fileID: 0}
 --- !u!114 &1546928312
 MonoBehaviour:
@@ -4887,7 +4928,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  velocity: 1
+  velocity: 3
 --- !u!95 &1546928314
 Animator:
   serializedVersion: 7
@@ -4965,6 +5006,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1546928316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546928301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8567d0e6768ad614a95750fe0a07dcb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  server: {fileID: 1546928309}
+  monkey: {fileID: 1546928311}
+  sceneName: Normal Scene
+  sceneDescription: This is a classical monkey-banana problem.
 --- !u!1 &1582443346
 GameObject:
   m_ObjectHideFlags: 0
@@ -4975,6 +5032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1582443347}
   - component: {fileID: 1582443348}
+  - component: {fileID: 1582443349}
   m_Layer: 6
   m_Name: Floor_4
   m_TagString: Untagged
@@ -5043,6 +5101,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.98}
   m_EdgeRadius: 0
+--- !u!114 &1582443349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582443346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75de4fb1cf504471be2843e6e31aa895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1591618289
 GameObject:
   m_ObjectHideFlags: 0
@@ -5346,6 +5416,7 @@ MonoBehaviour:
   itemName: Box
   itemDescription: 
   itemFunctions: []
+  itemId: 0
   isClimbable: 1
 --- !u!1 &1875165368
 GameObject:
@@ -5679,6 +5750,7 @@ MonoBehaviour:
   itemDescription: A delicious banana. The goal of this game is to move the monkey
     to get a banana.
   itemFunctions: []
+  itemId: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
