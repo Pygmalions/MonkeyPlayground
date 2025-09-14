@@ -4444,6 +4444,7 @@ GameObject:
   - component: {fileID: 1412833694}
   - component: {fileID: 1412833702}
   - component: {fileID: 1412833703}
+  - component: {fileID: 1412833704}
   m_Layer: 8
   m_Name: Box_small
   m_TagString: Untagged
@@ -4657,6 +4658,19 @@ MonoBehaviour:
   itemFunctions: []
   itemId: 0
   isClimbable: 1
+--- !u!114 &1412833704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412833693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab41ae18b20c854f9ab4315c1f7fe35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  revealRadius: 2
 --- !u!1 &1542487394
 GameObject:
   m_ObjectHideFlags: 0
@@ -4928,7 +4942,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  velocity: 3
+  velocity: 2
 --- !u!95 &1546928314
 Animator:
   serializedVersion: 7
@@ -5205,6 +5219,7 @@ GameObject:
   - component: {fileID: 1807629073}
   - component: {fileID: 1807629079}
   - component: {fileID: 1807629080}
+  - component: {fileID: 1807629081}
   m_Layer: 8
   m_Name: Box_big
   m_TagString: Untagged
@@ -5418,6 +5433,22 @@ MonoBehaviour:
   itemFunctions: []
   itemId: 0
   isClimbable: 1
+--- !u!114 &1807629081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807629070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 491bbaafeee337248ae118d16a6df99c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squashFactor: 0.5
+  squashDuration: 0.1
+  restoreDuration: 0.2
+  restoreDelay: 0.5
 --- !u!1 &1875165368
 GameObject:
   m_ObjectHideFlags: 0
