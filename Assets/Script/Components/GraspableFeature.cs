@@ -2,7 +2,9 @@ using UnityEngine;
 
 namespace MonkeyPlayground.Components
 {
-    [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D), typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D), 
+        typeof(SpriteRenderer)),
+     DisallowMultipleComponent]
     public class GraspableFeature : MonoBehaviour
     {
         private Rigidbody2D _rigidbody;
@@ -12,7 +14,7 @@ namespace MonkeyPlayground.Components
         private RigidbodyType2D _originalBodyType;
         private int _originalSortingOrder;
         private Color _originalColor;
-        
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -39,6 +41,5 @@ namespace MonkeyPlayground.Components
             _spriteRenderer.sortingOrder = _originalSortingOrder;
             _spriteRenderer.color = _originalColor;
         }
-        
     }
 }

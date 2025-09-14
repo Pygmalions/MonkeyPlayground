@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
-using MonkeyPlayground.Data;
 using UnityEngine;
 
 namespace MonkeyPlayground.Components
 { 
-    [RequireComponent(typeof(Collider2D))] 
+    [RequireComponent(typeof(Collider2D)), DisallowMultipleComponent] 
     public class CollapsibleFeature : MonoBehaviour
     {
         [SerializeField] private float squashFactor = 0.5f;

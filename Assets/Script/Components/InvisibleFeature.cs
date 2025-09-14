@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace MonkeyPlayground.Components
 {
-    [RequireComponent(typeof(Item), typeof(SpriteRenderer))]// 确保此脚本总是和Item、SpriteRenderer一起使用 
+    [RequireComponent(typeof(Item), typeof(SpriteRenderer)),
+     DisallowMultipleComponent]
     public class InvisibleFeature : MonoBehaviour
     {
         [SerializeField] private float revealRadius = 2f;
@@ -28,7 +29,7 @@ namespace MonkeyPlayground.Components
             else
             {
                 Debug.LogError("No monkey found in the scene, ObscurableItem doesn't work!", this);
-                enabled = false;//没有猴子这个脚本没必要工作吧
+                enabled = false; //没有猴子这个脚本没必要工作吧
                 return;
             }
 
@@ -49,7 +50,7 @@ namespace MonkeyPlayground.Components
         {
             if (_monkeyTransform == null) return;
 
-            float distanceToMonkey = Vector2.Distance(transform.position, _monkeyTransform.position);
+            var distanceToMonkey = Vector2.Distance(transform.position, _monkeyTransform.position);
 
             if (distanceToMonkey <= revealRadius)
             {
@@ -80,17 +81,13 @@ namespace MonkeyPlayground.Components
         {
             if (_isObscured)
             {
-                return new ItemData
+                return originalData with
                 {
-                    Id = originalData.Id,
                     Name = "Unknown",
-                    Description = "An unknown object, you can only know what it is when you get closer",
-                    Position = originalData.Position,
-                    Size = originalData.Size,
-                    Functions = originalData.Functions
+                    Description = "An unknown object, you can only know what it is when you get closer"
                 };
             }
-    
+
             return originalData;
         }
 
