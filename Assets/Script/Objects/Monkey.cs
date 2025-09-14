@@ -39,7 +39,7 @@ namespace MonkeyPlayground.Objects
         /// <summary>
         /// The current holding item.
         /// </summary>
-        [FormerlySerializedAs("holdingBox")] [MaybeNull] public Box holdingItem;
+        [MaybeNull] public Box holdingItem;
         
         private ObjectMovementController _movementController;
 
@@ -117,14 +117,16 @@ namespace MonkeyPlayground.Objects
 
             var hitColliders = Physics2D.OverlapBoxAll(
                 monkeyCollider.bounds.center, interactionSize, 0f);
-
-            var monkeyFeetY = transform.position.y + monkeyCollider.offset.y - (monkeyCollider.bounds.size.y / 2f);
-
+            
             return hitColliders
                 .Select(hitCollider => hitCollider.GetComponent<ClimbableFeature>())
                 .NotNull()
-                .Where(feature => feature.IsSelectable(monkeyCollider))
-                .OrderByDescending(feature => feature.GetComponent<Collider2D>().bounds.max.y)
+                .Where(climbable => climbable.IsSelectable(monkeyCollider))
+                // Monkey should not climb the object which is currently being held.
+                .Where(climbable => climbable.gameObject.GetComponent<GraspableFeature>() 
+                    is not { IsPickedUp: true })
+                .OrderByDescending(climbable => 
+                    climbable.GetComponent<Collider2D>().bounds.max.y)
                 .FirstOrDefault();
         }
         
@@ -160,7 +162,6 @@ namespace MonkeyPlayground.Objects
             
             if (ongoingAction.IsCompleted())
             {
-                // 在同一帧内就将 ongoingAction 清空！
                 ongoingAction = null;
             }
         }
@@ -172,7 +173,7 @@ namespace MonkeyPlayground.Objects
             
             switch (ongoingAction)
             {
-                case MonkeyMovingAction moving:
+                case MonkeyMoveAction moving:
                 {
                     _movementController.MoveAbsolutely(moving.GoalPosition, 
                         result => moving.Result = result);
@@ -212,7 +213,7 @@ namespace MonkeyPlayground.Objects
             }
             else
             {
-                climb.Result = ActionResult.Failed("There are no climbable objects nearby.");
+                climb.Result = ActionResult.Failed("There are no climbable boxes or floors nearby.");
             }
         }
 
@@ -221,8 +222,8 @@ namespace MonkeyPlayground.Objects
             var boxToGrab = FindInteractableBox();
             if (boxToGrab != null)
             {
-                float boxwidth = boxToGrab.GetComponent<Collider2D>().bounds.size.x;
-                float boxHeight = boxToGrab.GetComponent<Collider2D>().bounds.size.y;
+                var boxwidth = boxToGrab.GetComponent<Collider2D>().bounds.size.x;
+                var boxHeight = boxToGrab.GetComponent<Collider2D>().bounds.size.y;
                 var graspable = boxToGrab.GetComponent<GraspableFeature>();
                 graspable.OnPickup();
         
@@ -231,7 +232,7 @@ namespace MonkeyPlayground.Objects
                 Vector3 floatPosition = new Vector3(0, boxHeight, 0);
                 boxToGrab.transform.localPosition = floatPosition;
         
-                grab.Result = ActionResult.Succeeded("Successfully picked up the item!");
+                grab.Result = ActionResult.Succeeded("Successfully picked up the item.");
             }
             else
             {
@@ -244,20 +245,16 @@ namespace MonkeyPlayground.Objects
         {
             if (holdingItem != null)
             {
-                var graspable = holdingItem.GetComponent<GraspableFeature>();
-                if (graspable == null)
-                {
-                    Debug.LogError("捡起了不具有GraspableFeature的item，异常");
-                    return;
-                }
+                if (holdingItem.GetComponent<GraspableFeature>() is not {} graspable)
+                    throw new Exception("Holding item does not have a GraspableFeature component.");
                 holdingItem.transform.SetParent(null);
                 graspable.OnDrop();
                 holdingItem = null;
-                drop.Result = ActionResult.Succeeded("Successfully dropped the item!");
+                drop.Result = ActionResult.Succeeded("The held item has been successfully dropped.");
             }
             else
             {
-                drop.Result = ActionResult.Failed("There are no items being held.");
+                drop.Result = ActionResult.Failed("No item is currently held by the monkey.");
             }
         }
         

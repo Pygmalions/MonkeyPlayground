@@ -14,6 +14,11 @@ namespace MonkeyPlayground.Components
         private RigidbodyType2D _originalBodyType;
         private int _originalSortingOrder;
         private Color _originalColor;
+        
+        /// <summary>
+        /// Whether this object is currently picked up by the monkey.
+        /// </summary>
+        public bool IsPickedUp { get; private set; }
 
         private void Awake()
         {
@@ -29,6 +34,7 @@ namespace MonkeyPlayground.Components
             _rigidbody.bodyType = RigidbodyType2D.Kinematic;
             _rigidbody.linearVelocity = Vector2.zero;
             _collider.enabled = false;
+            IsPickedUp = true;
 
             _originalSortingOrder = _spriteRenderer.sortingOrder;
             _spriteRenderer.sortingOrder = 100;
@@ -40,6 +46,7 @@ namespace MonkeyPlayground.Components
             _collider.enabled = true;
             _spriteRenderer.sortingOrder = _originalSortingOrder;
             _spriteRenderer.color = _originalColor;
+            IsPickedUp = false;
         }
     }
 }
