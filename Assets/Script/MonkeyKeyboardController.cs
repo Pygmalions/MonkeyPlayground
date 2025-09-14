@@ -40,7 +40,7 @@ namespace MonkeyPlayground
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {
-                if (_monkey.holdingBox == null)
+                if (_monkey.holdingItem == null)
                 {
                     _monkey.AssignAction(new MonkeyGrabAction { Id = 0 });
                 }

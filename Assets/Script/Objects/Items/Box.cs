@@ -12,20 +12,19 @@ namespace MonkeyPlayground.Objects.Items
         {
             itemName = "Box";
         }
-
-        public bool isClimbable = true; //万一有不能爬的箱子呢
-
-        // 恢复之前的猴子可以左右穿过同时可以踩的逻辑
+        
         private Collider2D _monkeyCollider;
         private Collider2D _boxSolidCollider;
         private Rigidbody2D _boxRigidBody;
         private RigidbodyType2D _originalBodyType;
+        private CollapsibleFeature _collapsible;
         private const float PlatformTopBuffer = 0.05f;
         
         private void Awake()
         {
             _boxSolidCollider = GetComponent<Collider2D>();
             _boxRigidBody = GetComponent<Rigidbody2D>();
+            TryGetComponent(out _collapsible);
         }
 
         /// <summary>
@@ -81,6 +80,7 @@ namespace MonkeyPlayground.Objects.Items
                 ContactPoint2D contact = collision.GetContact(0);
                 if (contact.normal.y < -0.5f)
                 {
+                    if (_collapsible != null)  _collapsible.TriggerSquash();
                     _boxSolidCollider = GetComponent<Collider2D>();
                 }
             }
@@ -90,65 +90,10 @@ namespace MonkeyPlayground.Objects.Items
         {
             if (collision.gameObject.CompareTag("Player"))
             {
+                if (_collapsible != null)  _collapsible.TriggerRestore();
                 _boxSolidCollider = GetComponent<Collider2D>();
             }
         }
         
-        /// <summary>
-        /// 【新增】当物品被拿起时调用
-        /// </summary>
-        public void OnPickup()
-        {
-            _originalBodyType = _boxRigidBody.bodyType;
-            _boxRigidBody.bodyType = RigidbodyType2D.Kinematic;
-            _boxRigidBody.linearVelocity = Vector2.zero; // 清空速度
-            _boxSolidCollider.enabled = false;
-        }
-
-        /// <summary>
-        /// 【新增】当物品被放下时调用
-        /// </summary>
-        public void OnDrop()
-        {
-            _boxRigidBody.bodyType = _originalBodyType;
-            _boxSolidCollider.enabled = true;
-        }
-
-        /// <summary>
-        /// 带有高度检查的攀爬逻辑
-        /// </summary>
-        /// <param name="climberTransform">攀爬者的Transform</param>
-        /// <returns>返回一个ActionResult，表示成功或失败</returns>
-        public ActionResult AttemptClimb(Transform climberTransform)
-        {
-            var boxCollider = GetComponent<Collider2D>();
-            var climberCollider = climberTransform.GetComponent<Collider2D>();
-
-            if (boxCollider == null || climberCollider == null)
-            {
-                return ActionResult.Failed("Missing collision body, unable to calculate climbing.");
-            }
-
-
-            float monkeyFeetY = climberCollider.bounds.min.y;
-            float boxTopY = boxCollider.bounds.max.y;
-            float heightDifference = boxTopY - monkeyFeetY;
-
-            // 高度差在0到1f之间才允许攀爬，否则失败
-            if (heightDifference > 1f || heightDifference < 0)
-            {
-                return ActionResult.Failed($"It’s too far from the top of the box and I can’t climb up!");
-            }
-
-            // 执行攀爬动作
-            float climberHeight = climberCollider.bounds.size.y;
-            climberTransform.position = new Vector3(
-                transform.position.x,
-                boxTopY + 0.05f,
-                climberTransform.position.z
-            );
-
-            return ActionResult.Succeeded("Successfully climbed onto the box!");
-        }
     }
 }
