@@ -37,7 +37,7 @@ namespace MonkeyPlayground.Objects
         /// <summary>
         /// The current holding item.
         /// </summary>
-        [FormerlySerializedAs("holdingItem")] [MaybeNull] public Box holdingBox;
+        [FormerlySerializedAs("holdingBox")] [MaybeNull] public Box holdingItem;
         
         private ObjectMovementController _movementController;
 
@@ -48,7 +48,7 @@ namespace MonkeyPlayground.Objects
                 Name = monkeyName,
                 Position = _latestPosition,
                 Size = _latestSize,
-                HoldingItem = holdingBox?.GenerateData(),
+                HoldingItem = holdingItem?.GenerateData(),
                 OngoingAction = ongoingAction
             };
         }
@@ -92,7 +92,8 @@ namespace MonkeyPlayground.Objects
             var nearestBox = hitColliders
                 .Select(col => col.GetComponent<Box>())
                 .Where(item => item != null)
-                .Where(item => item != holdingBox)
+                .Where(item => item != holdingItem)
+                .Where(item => item.GetComponent<GraspableFeature>() != null)
                 .OrderBy(item => Vector2.Distance(
                     new Vector2(transform.position.x, 0),
                     new Vector2(item.transform.position.x, 0)
@@ -106,42 +107,21 @@ namespace MonkeyPlayground.Objects
         /// Try to find the highest climbable box on the same height level.
         /// </summary>
         /// <returns>Climbable box, or null if not found.</returns>
-        public Box FindHighestClimbableBox()
+        public ClimbableFeature FindHighestClimbableFeature()
         {
+            Vector2 interactionSize = new Vector2(interactionwidth,interactionheight);
             var monkeyCollider = GetComponent<Collider2D>();
-            if (monkeyCollider == null)
-            {
-                Debug.LogError("Monkey is missing a Collider2D component.");
-                return null;
-            }
+            if (monkeyCollider == null) return null;
 
-            Vector2 center = monkeyCollider.bounds.center + Vector3.up * monkeyCollider.bounds.size.y / 2;
-            Vector2 interactionSize = new Vector2(interactionwidth, interactionheight);
-            Collider2D[] hitColliders = Physics2D.OverlapBoxAll(center, interactionSize, 0f);
-            
-            if (hitColliders.Length == 0)
-            {
-                return null; 
-            }
+            Collider2D[] hitColliders = Physics2D.OverlapBoxAll(monkeyCollider.bounds.center, interactionSize, 0f);
 
-            float monkeyFeetY = monkeyCollider.bounds.min.y;
-            const float maxClimbHeight = 1f; 
+            float monkeyFeetY = transform.position.y + monkeyCollider.offset.y - (monkeyCollider.bounds.size.y / 2f);
 
-            var highestBox = hitColliders
-                .Select(col => col.GetComponent<Item>())
-                .OfType<Box>()
-                .Where(box => box.isClimbable)
-                .Where(box =>
-                {
-                    var boxCollider = box.GetComponent<Collider2D>();
-                    float boxTopY = boxCollider.bounds.max.y;
-                    float heightDifference = boxTopY - monkeyFeetY;
-                    return heightDifference >= 0 && heightDifference <= maxClimbHeight;
-                })
-                .OrderByDescending(box => box.GetComponent<Collider2D>().bounds.max.y)
+            return hitColliders
+                .Select(col => col.GetComponent<ClimbableFeature>()) // 直接查找ClimbableFeature
+                .Where(feature => feature != null)
+                .OrderByDescending(feature => feature.GetComponent<Collider2D>().bounds.max.y)
                 .FirstOrDefault();
-
-            return highestBox;
         }
         
         private void Awake()
@@ -157,7 +137,7 @@ namespace MonkeyPlayground.Objects
              */
             _latestPosition = new PositionData(transform);
             _latestSize = new SizeData(transform);
-
+            
             if (ongoingAction == null)
                 return;
 
@@ -213,18 +193,23 @@ namespace MonkeyPlayground.Objects
                     ongoingAction.Result = ActionResult.Failed($"Unsupported action type '{ongoingAction.GetType()}'.");
                     break;
             }
+            
+            if (ongoingAction.Result.Status != ActionStatus.Running)
+            {
+                ongoingAction = null;
+            }
         }
-        
+
         public void ClimbHighestBox(MonkeyClimbAction climb)
         {
-            var itemToClimb = FindHighestClimbableBox();
-            if (itemToClimb != null && itemToClimb is Box climbableBox && climbableBox.isClimbable)
+            var featureToClimb = FindHighestClimbableFeature();
+            if (featureToClimb != null)
             {
-                climb.Result = climbableBox.AttemptClimb(transform);
+                climb.Result = featureToClimb.AttemptClimb(transform);
             }
             else
             {
-                climb.Result = ActionResult.Failed("There are no climbable boxes nearby。");
+                climb.Result = ActionResult.Failed("There are no climbable objects nearby.");
             }
         }
 
@@ -235,13 +220,12 @@ namespace MonkeyPlayground.Objects
             {
                 float boxwidth = boxToGrab.GetComponent<Collider2D>().bounds.size.x;
                 float boxHeight = boxToGrab.GetComponent<Collider2D>().bounds.size.y;
-                boxToGrab.OnPickup(); // OnPickup()函数用于禁用箱子的碰撞体和动力学
+                var graspable = boxToGrab.GetComponent<GraspableFeature>();
+                graspable.OnPickup();
         
-                holdingBox = boxToGrab;
+                holdingItem = boxToGrab;
                 boxToGrab.transform.SetParent(transform);
-                
-                int facingDirection = _movementController.IsFacingRight ? 1 : -1;
-                Vector3 floatPosition = new Vector3(boxwidth/2, boxHeight, 0);
+                Vector3 floatPosition = new Vector3(0, boxHeight, 0);
                 boxToGrab.transform.localPosition = floatPosition;
         
                 grab.Result = ActionResult.Succeeded("Successfully picked up the item!");
@@ -255,26 +239,18 @@ namespace MonkeyPlayground.Objects
         
         public void DropItem(MonkeyDropAction drop)
         {
-            if (holdingBox != null)
+            if (holdingItem != null)
             {
-                var itemCollider = holdingBox.GetComponent<Collider2D>();
-        
-                itemCollider.enabled = true;
-                Collider2D overlapCheck = Physics2D.OverlapBox(holdingBox.transform.position, itemCollider.bounds.size * 0.9f, 0, obstacleLayer);
-                
-                if (overlapCheck != null)
+                var graspable = holdingItem.GetComponent<GraspableFeature>();
+                if (graspable == null)
                 {
-                    drop.Result = ActionResult.Failed("Placement failed: The target location is blocked by an obstacle!");
+                    Debug.LogError("捡起了不具有GraspableFeature的item，异常");
+                    return;
                 }
-                else
-                {
-                    Vector3 dropPosition = holdingBox.transform.position;
-                    holdingBox.transform.SetParent(null);
-                    holdingBox.transform.position = dropPosition;
-                    holdingBox.OnDrop(); // OnDrop 会最终确保碰撞体是启用的
-                    holdingBox = null;
-                    drop.Result = ActionResult.Succeeded("Successfully dropped the item!");
-                }
+                holdingItem.transform.SetParent(null);
+                graspable.OnDrop();
+                holdingItem = null;
+                drop.Result = ActionResult.Succeeded("Successfully dropped the item!");
             }
             else
             {

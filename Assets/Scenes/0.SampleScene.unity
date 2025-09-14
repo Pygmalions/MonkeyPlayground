@@ -3579,6 +3579,8 @@ GameObject:
   - component: {fileID: 1412833702}
   - component: {fileID: 1412833703}
   - component: {fileID: 1412833704}
+  - component: {fileID: 1412833706}
+  - component: {fileID: 1412833705}
   m_Layer: 8
   m_Name: Box_small
   m_TagString: Untagged
@@ -3791,7 +3793,6 @@ MonoBehaviour:
   itemDescription: 
   itemFunctions: []
   itemId: 0
-  isClimbable: 1
 --- !u!114 &1412833704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3805,6 +3806,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   revealRadius: 2
+--- !u!114 &1412833705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412833693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbb4ae4d37b471fa6c32e97aa256be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1412833706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412833693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79575244cf047ab9cee4c50c63c90b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1542487394
 GameObject:
   m_ObjectHideFlags: 0
@@ -4046,7 +4071,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  holdingBox: {fileID: 0}
+  holdingItem: {fileID: 0}
 --- !u!114 &1546928312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4411,6 +4436,8 @@ GameObject:
   - component: {fileID: 1807629079}
   - component: {fileID: 1807629080}
   - component: {fileID: 1807629081}
+  - component: {fileID: 1807629083}
+  - component: {fileID: 1807629082}
   m_Layer: 8
   m_Name: Box_big
   m_TagString: Untagged
@@ -4623,7 +4650,6 @@ MonoBehaviour:
   itemDescription: 
   itemFunctions: []
   itemId: 0
-  isClimbable: 1
 --- !u!114 &1807629081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4640,6 +4666,30 @@ MonoBehaviour:
   squashDuration: 0.1
   restoreDuration: 0.2
   restoreDelay: 0.5
+--- !u!114 &1807629082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807629070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbb4ae4d37b471fa6c32e97aa256be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1807629083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807629070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79575244cf047ab9cee4c50c63c90b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1875165368
 GameObject:
   m_ObjectHideFlags: 0
