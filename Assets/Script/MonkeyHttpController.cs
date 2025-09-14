@@ -102,7 +102,22 @@ namespace MonkeyPlayground
                     return;
                 }
 
-                request.CreateResponse().BodyJson(MoveMonkey(position)).SendAsync();
+                request.CreateResponse().BodyJson(MonkeyMove(position)).SendAsync();
+            });
+            
+            server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, "/monkey/grab", request =>
+            {
+                request.CreateResponse().BodyJson(MonkeyGrabItem()).SendAsync();
+            });
+            
+            server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, "/monkey/drop", request =>
+            {
+                request.CreateResponse().BodyJson(MonkeyDropItem()).SendAsync();
+            });
+            
+            server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, "/monkey/climb", request =>
+            {
+                request.CreateResponse().BodyJson(MonkeyClimb()).SendAsync();
             });
         }
 
@@ -136,7 +151,7 @@ namespace MonkeyPlayground
             });
         }
 
-        private ActionData MoveMonkey(int x)
+        private ActionData MonkeyMove(int x)
         {
             var action = new MonkeyMovingAction
             {
@@ -145,6 +160,36 @@ namespace MonkeyPlayground
             };
             RegisterActionData(action);
             // Assign the action to the monkey.
+            return monkey.AssignAction(action);
+        }
+
+        private ActionData MonkeyGrabItem()
+        {
+            var action = new MonkeyGrabAction()
+            {
+                Id = Interlocked.Increment(ref _actionNextId),
+            };
+            RegisterActionData(action);
+            return monkey.AssignAction(action);
+        }
+        
+        private ActionData MonkeyDropItem()
+        {
+            var action = new MonkeyDropAction()
+            {
+                Id = Interlocked.Increment(ref _actionNextId),
+            };
+            RegisterActionData(action);
+            return monkey.AssignAction(action);
+        }
+        
+        private ActionData MonkeyClimb()
+        {
+            var action = new MonkeyClimbAction()
+            {
+                Id = Interlocked.Increment(ref _actionNextId),
+            };
+            RegisterActionData(action);
             return monkey.AssignAction(action);
         }
     }
