@@ -21,13 +21,11 @@ namespace MonkeyPlayground.Objects.Items
         private Rigidbody2D _boxRigidBody;
         private RigidbodyType2D _originalBodyType;
         private const float PlatformTopBuffer = 0.05f;
-        private ObjectSquashableController _squashable;
         
         private void Awake()
         {
             _boxSolidCollider = GetComponent<Collider2D>();
             _boxRigidBody = GetComponent<Rigidbody2D>();
-            TryGetComponent(out _squashable);
         }
 
         /// <summary>
@@ -83,7 +81,6 @@ namespace MonkeyPlayground.Objects.Items
                 ContactPoint2D contact = collision.GetContact(0);
                 if (contact.normal.y < -0.5f)
                 {
-                    if (_squashable != null) _squashable.TriggerSquash();
                     _boxSolidCollider = GetComponent<Collider2D>();
                 }
             }
@@ -93,7 +90,6 @@ namespace MonkeyPlayground.Objects.Items
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                if (_squashable != null) _squashable.TriggerRestore();
                 _boxSolidCollider = GetComponent<Collider2D>();
             }
         }
