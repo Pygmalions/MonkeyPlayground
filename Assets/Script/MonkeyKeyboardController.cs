@@ -31,7 +31,8 @@ namespace MonkeyPlayground
                 Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
             {
                 var horizontal = Input.GetAxis("Horizontal");
-                _movementController.MoveRelatively(horizontal, null);
+                // Add 0.5 to compensate for alignment to grid.
+                _movementController.MoveRelatively(horizontal + 0.5f, null);
             }
             
             if (Input.GetKeyDown(KeyCode.E))
