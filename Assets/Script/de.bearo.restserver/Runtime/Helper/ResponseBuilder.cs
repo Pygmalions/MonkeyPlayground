@@ -2,13 +2,23 @@ using System;
 using System.Collections.Generic;
 using RestServer.NetCoreServer;
 using Unity.Plastic.Newtonsoft.Json;
+using Unity.Plastic.Newtonsoft.Json.Converters;
 using UnityEngine;
 
 namespace RestServer.Helper {
     /// <summary>
     /// Response builder that dynamically builds a response with the given options. Use SendAsync() to send the response to the caller. 
     /// </summary>
-    public class ResponseBuilder {
+    public class ResponseBuilder
+    {
+        private static readonly JsonSerializerSettings JsonSerializerSettings;
+
+        static ResponseBuilder()
+        {
+            JsonSerializerSettings = new JsonSerializerSettings();
+            JsonSerializerSettings.Converters.Add(new StringEnumConverter());
+        }
+        
         private readonly Logger _logger;
 
         private int _status;
@@ -43,7 +53,8 @@ namespace RestServer.Helper {
                 _header.withSetIfNotExists(HttpHeader.CONTENT_TYPE, MimeType.APPLICATION_JSON_UTF_8);
             }
 
-            _body = new ResponseBuilderBodyHelper(JsonConvert.SerializeObject(obj));
+            _body = new ResponseBuilderBodyHelper(JsonConvert.SerializeObject(
+                obj, Formatting.Indented, JsonSerializerSettings));
             return this;
         }
 
