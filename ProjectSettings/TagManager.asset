@@ -44,14 +44,11 @@ TagManager:
   - name: Wall
     uniqueID: 293043383
     locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Ground
     uniqueID: 504202045
     locked: 0
-  - name: Monkey
-    uniqueID: 1850705073
+  - name: Default
+    uniqueID: 0
     locked: 0
   m_RenderingLayers:
   - Default
