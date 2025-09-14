@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Threading;
 using MonkeyPlayground.Data;
 using MonkeyPlayground.Data.Actions;
@@ -31,6 +33,10 @@ namespace MonkeyPlayground
 
         public Floor[] DiscoveredFloors { get; private set; }
 
+        // private readonly Dictionary<int, ActionData> _actions = new();
+
+        private readonly MemoryCache _actions = new("ActionDataCache");
+        
         /// <summary>
         /// Scan the whole scene for items and floors.
         /// </summary>
@@ -61,6 +67,27 @@ namespace MonkeyPlayground
                         Name = sceneName,
                         Description = sceneDescription
                     }).SendAsync();
+                });
+
+            server.EndpointCollection.RegisterEndpoint(HttpMethod.GET, "/action/status",
+                request =>
+                {
+                    var stringId = request.QueryParametersDict["id"].FirstOrDefault();
+                    if (!int.TryParse(stringId, out var id))
+                    {
+                        request.CreateResponse().StatusError()
+                            .Body("Action ID is not a valid integer.")
+                            .SendAsync();
+                        return;
+                    }
+
+                    var data = SearchActionData(id);
+                    if (data != null)
+                        request.CreateResponse().BodyJson(data).SendAsync();
+                    else
+                        request.CreateResponse().StatusError()
+                            .Body("Cannot find the action with the specified ID.")
+                            .SendAsync();
                 });
 
             server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, "/monkey/move", request =>
@@ -96,13 +123,27 @@ namespace MonkeyPlayground
             };
         }
 
+        private ActionData SearchActionData(int id)
+        {
+            return _actions.Get(id.ToString()) as ActionData;
+        }
+
+        private void RegisterActionData(ActionData action)
+        {
+            _actions.Set(action.Id.ToString(), action, new CacheItemPolicy
+            {
+                SlidingExpiration = TimeSpan.FromSeconds(45)
+            });
+        }
+
         private ActionData MoveMonkey(int x)
         {
             var action = new MonkeyMovingAction
             {
                 Id = Interlocked.Increment(ref _actionNextId),
-                GoalPosition = x
+                GoalPosition = x,
             };
+            RegisterActionData(action);
             // Assign the action to the monkey.
             return monkey.AssignAction(action);
         }
