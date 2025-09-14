@@ -161,17 +161,33 @@ namespace MonkeyPlayground.Objects
             if (ongoingAction == null)
                 return;
 
-            if (ongoingAction.Result.Status != ActionStatus.Running)
+            if (ongoingAction.IsCompleted())
             {
                 ongoingAction = null;
                 return;
             }
             
+            if (ongoingAction.Result.Status == ActionStatus.Pending)
+                ExecuteAction(ongoingAction);
+            
+            if (ongoingAction.IsCompleted())
+            {
+                // 在同一帧内就将 ongoingAction 清空！
+                ongoingAction = null;
+            }
+        }
+
+        private void ExecuteAction(ActionData action)
+        {
+            ongoingAction = action;
+            action.Result = ActionResult.Running();
+            
             switch (ongoingAction)
             {
                 case MonkeyMovingAction moving:
                 {
-                    _movementController.MoveAbsolutely(moving.GoalPosition, result => moving.Result = result);
+                    _movementController.MoveAbsolutely(moving.GoalPosition, 
+                        result => moving.Result = result);
                     break;
                 }
                 
@@ -197,14 +213,8 @@ namespace MonkeyPlayground.Objects
                     ongoingAction.Result = ActionResult.Failed($"Unsupported action type '{ongoingAction.GetType()}'.");
                     break;
             }
-            
-            if (ongoingAction.Result.Status != ActionStatus.Running)
-            {
-                // 在同一帧内就将 ongoingAction 清空！
-                ongoingAction = null;
-            }
         }
-
+        
         public void ClimbHighestBox(MonkeyClimbAction climb)
         {
             var itemToClimb = FindHighestClimbableBox();

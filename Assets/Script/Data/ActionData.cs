@@ -16,14 +16,21 @@ public abstract class ActionData
     /// The content of this action, describing what this action does in detail.
     /// </summary>
     public abstract string Content { get; }
-    
-    /// <summary>
-    /// Message of this action, describing what this action does.
-    /// </summary>
-    public string Message { get; private set; }
 
     /// <summary>
     /// Current status of this action.
     /// </summary>
-    public ActionResult Result { get; set; } = ActionResult.Running();
+    public ActionResult Result { get; set; } = ActionResult.Pending();
+}
+
+public static class ActionDataExtensions
+{
+    /// <summary>
+    /// Check whether this action is completed (succeeded, failed, or cancelled).
+    /// </summary>
+    /// <returns>
+    /// True if this action is completed (succeeded, failed, or cancelled); otherwise, false.
+    /// </returns>
+    public static bool IsCompleted(this ActionData data)
+        => data.Result.Status != ActionStatus.Pending && data.Result.Status != ActionStatus.Running;
 }
