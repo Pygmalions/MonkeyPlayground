@@ -15,9 +15,9 @@ namespace MonkeyPlayground.Objects
         {
             var position = transform.position;
             var size = transform.localScale;
-            _leftEndX = (int)(position.x - size.x / 2.0f);
-            _rightEndX = (int)(position.x + size.x / 2.0f);
-            _y = (int)MathF.Ceiling(position.y + size.y / 2.0f);
+            _leftEndX = (int)MathF.Round(position.x - size.x / 2.0f + 0.5f);
+            _rightEndX = (int)MathF.Round(position.x + size.x / 2.0f + 0.5f);
+            _y = (int)MathF.Round(position.y + size.y / 2.0f);
         }
         
         protected override FloorData OnGenerateData()

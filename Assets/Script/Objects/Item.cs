@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using MonkeyPlayground.Data;
@@ -15,8 +16,8 @@ namespace MonkeyPlayground.Objects
         [SerializeField] public List<string> itemFunctions = new();
         [SerializeField] public int itemId = 0;
         
-        private PositionData _position;
-        private SizeData _size;
+        private PositionData _latestPosition;
+        private SizeData _latestSize;
 
         private void Reset()
         {
@@ -25,8 +26,12 @@ namespace MonkeyPlayground.Objects
 
         protected virtual void Update()
         {
-            _position = new PositionData(transform);
-            _size = new SizeData(transform);
+            _latestPosition = new PositionData
+            {
+                X = (int)MathF.Round(transform.position.x + 0.5f),
+                Y = (int)MathF.Round(transform.position.y),
+            };
+            _latestSize = new SizeData(transform);
         }
         
         protected override ItemData OnGenerateData()
@@ -36,8 +41,8 @@ namespace MonkeyPlayground.Objects
                 Name = itemName,
                 Id = itemId,
                 Description = itemDescription,
-                Size = _size,
-                Position = _position,
+                Size = _latestSize,
+                Position = _latestPosition,
                 Functions = itemFunctions
             };
         }

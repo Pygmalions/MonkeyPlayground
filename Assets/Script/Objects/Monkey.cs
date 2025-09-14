@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using MonkeyPlayground.Data;
 using MonkeyPlayground.Data.Actions;
@@ -5,6 +6,7 @@ using UnityEngine;
 using MonkeyPlayground.Components;
 using MonkeyPlayground.Objects.Items;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
 namespace MonkeyPlayground.Objects
@@ -109,17 +111,19 @@ namespace MonkeyPlayground.Objects
         /// <returns>Climbable box, or null if not found.</returns>
         public ClimbableFeature FindHighestClimbableFeature()
         {
-            Vector2 interactionSize = new Vector2(interactionwidth,interactionheight);
+            var interactionSize = new Vector2(interactionwidth,interactionheight);
             var monkeyCollider = GetComponent<Collider2D>();
             if (monkeyCollider == null) return null;
 
-            Collider2D[] hitColliders = Physics2D.OverlapBoxAll(monkeyCollider.bounds.center, interactionSize, 0f);
+            var hitColliders = Physics2D.OverlapBoxAll(
+                monkeyCollider.bounds.center, interactionSize, 0f);
 
-            float monkeyFeetY = transform.position.y + monkeyCollider.offset.y - (monkeyCollider.bounds.size.y / 2f);
+            var monkeyFeetY = transform.position.y + monkeyCollider.offset.y - (monkeyCollider.bounds.size.y / 2f);
 
             return hitColliders
-                .Select(col => col.GetComponent<ClimbableFeature>()) // 直接查找ClimbableFeature
-                .Where(feature => feature != null)
+                .Select(hitCollider => hitCollider.GetComponent<ClimbableFeature>())
+                .NotNull()
+                .Where(feature => feature.IsSelectable(monkeyCollider))
                 .OrderByDescending(feature => feature.GetComponent<Collider2D>().bounds.max.y)
                 .FirstOrDefault();
         }
@@ -135,7 +139,11 @@ namespace MonkeyPlayground.Objects
              * Web threads cannot access Unity objects directly,
              * therefore status need to be cached here.
              */
-            _latestPosition = new PositionData(transform);
+            _latestPosition = new PositionData
+            {
+                X = (int)MathF.Round(transform.position.x + 0.5f),
+                Y = (int)MathF.Round(transform.position.y),
+            };
             _latestSize = new SizeData(transform);
             
             if (ongoingAction == null)
@@ -193,11 +201,6 @@ namespace MonkeyPlayground.Objects
                     ongoingAction.Result = ActionResult.Failed($"Unsupported action type '{ongoingAction.GetType()}'.");
                     break;
             }
-            
-            if (ongoingAction.Result.Status != ActionStatus.Running)
-            {
-                ongoingAction = null;
-            }
         }
 
         public void ClimbHighestBox(MonkeyClimbAction climb)
@@ -205,7 +208,7 @@ namespace MonkeyPlayground.Objects
             var featureToClimb = FindHighestClimbableFeature();
             if (featureToClimb != null)
             {
-                climb.Result = featureToClimb.AttemptClimb(transform);
+                climb.Result = featureToClimb.Climb(transform);
             }
             else
             {
