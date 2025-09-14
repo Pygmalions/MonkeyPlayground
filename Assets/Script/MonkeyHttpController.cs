@@ -52,9 +52,13 @@ namespace MonkeyPlayground
             monkey = GetComponent<Monkey>();
         }
 
+        private float _actionWaitingTime = 0.0f;
+        
         private void Start()
         {
             ScanPerceptibleObjects();
+
+            _actionWaitingTime = Time.fixedDeltaTime * 2;
 
             server.EndpointCollection.RegisterEndpoint(HttpMethod.GET, "/scene/status",
                 request => { request.CreateResponse().BodyJson(GetSceneData()).SendAsync(); });
@@ -81,7 +85,7 @@ namespace MonkeyPlayground
                         return;
                     }
 
-                    var data = SearchActionData(id);
+                    var data = SearchAction(id);
                     if (data != null)
                         request.CreateResponse().BodyJson(data).SendAsync();
                     else
@@ -138,17 +142,20 @@ namespace MonkeyPlayground
             };
         }
 
-        private ActionData SearchActionData(int id)
+        private ActionData SearchAction(int id)
         {
             return _actions.Get(id.ToString()) as ActionData;
         }
 
-        private void RegisterActionData(ActionData action)
+        private void DispatchAction(ActionData action)
         {
             _actions.Set(action.Id.ToString(), action, new CacheItemPolicy
             {
                 SlidingExpiration = TimeSpan.FromSeconds(45)
             });
+            monkey.AssignAction(action);
+            // Most actions finish condition checks within two frames.
+            Thread.Sleep(TimeSpan.FromSeconds(_actionWaitingTime));
         }
 
         private ActionData MonkeyMove(int x)
@@ -158,9 +165,8 @@ namespace MonkeyPlayground
                 Id = Interlocked.Increment(ref _actionNextId),
                 GoalPosition = x,
             };
-            RegisterActionData(action);
-            // Assign the action to the monkey.
-            return monkey.AssignAction(action);
+            DispatchAction(action);
+            return action;
         }
 
         private ActionData MonkeyGrabItem()
@@ -169,8 +175,8 @@ namespace MonkeyPlayground
             {
                 Id = Interlocked.Increment(ref _actionNextId),
             };
-            RegisterActionData(action);
-            return monkey.AssignAction(action);
+            DispatchAction(action);
+            return action;
         }
         
         private ActionData MonkeyDropItem()
@@ -179,8 +185,8 @@ namespace MonkeyPlayground
             {
                 Id = Interlocked.Increment(ref _actionNextId),
             };
-            RegisterActionData(action);
-            return monkey.AssignAction(action);
+            DispatchAction(action);
+            return action;
         }
         
         private ActionData MonkeyClimb()
@@ -189,8 +195,8 @@ namespace MonkeyPlayground
             {
                 Id = Interlocked.Increment(ref _actionNextId),
             };
-            RegisterActionData(action);
-            return monkey.AssignAction(action);
+            DispatchAction(action);
+            return action;
         }
     }
 }
