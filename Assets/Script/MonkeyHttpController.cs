@@ -133,6 +133,17 @@ namespace MonkeyPlayground
             {
                 request.CreateResponse().BodyJson(MonkeyClimb()).SendAsync();
             });
+
+            server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, "/scene/restart", request =>
+            {
+                ThreadingHelper.Instance.ExecuteAsync(RestartScene);
+                request.CreateResponse().SendAsync();
+            });
+        }
+
+        private void RestartScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         }
 
         private SceneData GetSceneData()
