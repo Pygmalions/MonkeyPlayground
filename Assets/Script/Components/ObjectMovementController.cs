@@ -42,15 +42,16 @@ namespace MonkeyPlayground.Components
 
         public void MoveAbsolutely(float targetPosition, Action<ActionResult> onComplete)
         {
+            // Minus 0.5 to align with the center of the tile.
+            _targetPosition = targetPosition - 0.5f;
+            
             if (IsMoving)
             {
-                _targetPosition = targetPosition;
                 _continuation?.Invoke(ActionResult.Cancelled("This action is overriden with a new move command."));
                 _continuation = onComplete;
                 return;
             }
-
-            _targetPosition = targetPosition;
+            
             _continuation = onComplete;
             StartCoroutine(ChaseTargetPositionCoroutine());
         }
@@ -62,24 +63,15 @@ namespace MonkeyPlayground.Components
 
             while (Mathf.Abs(_targetPosition - transform.position.x) > 0.05f)
             {
-                var raycastDistance = _collider.bounds.size.x * 0.5f + 0.1f;
+                var raycastDistance = _collider.bounds.extents.x + 0.1f;
                 var direction = Mathf.Sign(_targetPosition - transform.position.x);
-                var rayOrigin = new Vector2(transform.position.x, _collider.bounds.center.y);
+                var rayOrigin = new Vector2(_collider.bounds.center.x, _collider.bounds.center.y);
                 var rayDirection = new Vector2(direction, 0);
                 Debug.DrawRay(rayOrigin, rayDirection * raycastDistance, Color.red);
 
                 var hit = Physics2D.Raycast(rayOrigin, rayDirection, raycastDistance, obstacleLayer);
                 if (hit.collider != null)
-                {
-                    Debug.Log($"Obstacle detected: {hit.collider.name}");
-                    SetVelocity(0, _rigidBody.linearVelocity.y);
-
-                    ExitMovingState(
-                        ActionResult.Failed(
-                            "Failed to move to the specified position: path is blocked by obstacle."));
-
-                    yield break;
-                }
+                    break;
 
                 SetVelocity(velocity * direction, _rigidBody.linearVelocity.y);
 
@@ -91,9 +83,17 @@ namespace MonkeyPlayground.Components
 
                 yield return null;
             }
+            
+            SetVelocity(0, _rigidBody.linearVelocity.y);
 
-            transform.position = new Vector3(_targetPosition, transform.position.y, transform.position.z);
-
+            if (Mathf.Abs(_targetPosition - transform.position.x) > 0.1f)
+            {
+                Debug.LogWarning("Failed to reach the target position due to an obstacle.");
+                ExitMovingState(
+                    ActionResult.Failed(
+                        "Failed to move to the specified position: path is blocked by obstacle."));
+            }
+            
             ExitMovingState(ActionResult.Succeeded("Monkey has reached the target position."));
 
             yield break;
