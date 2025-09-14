@@ -1,5 +1,6 @@
 using UnityEngine;
 using MonkeyPlayground.Data;
+using MonkeyPlayground.Components;
 using UnityEngine.Serialization;
 
 namespace MonkeyPlayground.Objects.Items
@@ -20,11 +21,13 @@ namespace MonkeyPlayground.Objects.Items
         private Rigidbody2D _boxrigidbody;
         private RigidbodyType2D _originalBodyType;
         private const float PlatformTopBuffer = 0.05f;
+        private ObjectSquashableController _squashable;
 
         private void Awake()
         {
             _boxSolidCollider = GetComponent<Collider2D>();
             _boxrigidbody = GetComponent<Rigidbody2D>();
+            TryGetComponent(out _squashable);
         }
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace MonkeyPlayground.Objects.Items
             }
         }
 
-
+        #region Collision and Trigger
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -73,6 +76,28 @@ namespace MonkeyPlayground.Objects.Items
             }
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                ContactPoint2D contact = collision.GetContact(0);
+                if (contact.normal.y < -0.5f)
+                {
+                    if (_squashable != null) _squashable.TriggerSquash();
+                    _boxSolidCollider = GetComponent<Collider2D>();
+                }
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                if (_squashable != null) _squashable.TriggerRestore();
+                _boxSolidCollider = GetComponent<Collider2D>();
+            }
+        }
+        #endregion
         
         /// <summary>
         /// 【新增】当物品被拿起时调用
