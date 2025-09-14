@@ -22,11 +22,10 @@ namespace MonkeyPlayground
         /// </summary>
         [Tooltip("The monkey controlled by this controller.")]
         public Monkey monkey;
-        
+
         public string sceneName = "Normal Scene";
-        
-        [Multiline(int.MaxValue)]
-        public string sceneDescription = "This is a classical monkey-banana problem.";
+
+        [Multiline(int.MaxValue)] public string sceneDescription = "This is a classical monkey-banana problem.";
 
         public Item[] DiscoveredItems { get; private set; }
 
@@ -55,12 +54,15 @@ namespace MonkeyPlayground
                 request => { request.CreateResponse().BodyJson(GetSceneData()).SendAsync(); });
 
             server.EndpointCollection.RegisterEndpoint(HttpMethod.GET, "/scene/description",
-                request => { request.CreateResponse().BodyJson(new
+                request =>
                 {
-                    Name = sceneName,
-                    Description = sceneDescription
-                }).SendAsync(); });
-            
+                    request.CreateResponse().BodyJson(new
+                    {
+                        Name = sceneName,
+                        Description = sceneDescription
+                    }).SendAsync();
+                });
+
             server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, "/monkey/move", request =>
             {
                 var stringPosition = request.QueryParametersDict["position"].FirstOrDefault();
@@ -96,7 +98,7 @@ namespace MonkeyPlayground
 
         private ActionData MoveMonkey(int x)
         {
-            var action = new MonkeyMovingAction()
+            var action = new MonkeyMovingAction
             {
                 Id = Interlocked.Increment(ref _actionNextId),
                 GoalPosition = x

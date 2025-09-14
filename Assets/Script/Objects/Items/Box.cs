@@ -17,14 +17,14 @@ namespace MonkeyPlayground.Objects.Items
         // 恢复之前的猴子可以左右穿过同时可以踩的逻辑
         private Collider2D _monkeyCollider;
         private Collider2D _boxSolidCollider;
-        private Rigidbody2D _boxrigidbody;
+        private Rigidbody2D _boxRigidBody;
         private RigidbodyType2D _originalBodyType;
         private const float PlatformTopBuffer = 0.05f;
 
         private void Awake()
         {
             _boxSolidCollider = GetComponent<Collider2D>();
-            _boxrigidbody = GetComponent<Rigidbody2D>();
+            _boxRigidBody = GetComponent<Rigidbody2D>();
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace MonkeyPlayground.Objects.Items
         /// </summary>
         public void OnPickup()
         {
-            _originalBodyType = _boxrigidbody.bodyType;
-            _boxrigidbody.bodyType = RigidbodyType2D.Kinematic;
-            _boxrigidbody.linearVelocity = Vector2.zero; // 清空速度
+            _originalBodyType = _boxRigidBody.bodyType;
+            _boxRigidBody.bodyType = RigidbodyType2D.Kinematic;
+            _boxRigidBody.linearVelocity = Vector2.zero; // 清空速度
             _boxSolidCollider.enabled = false;
         }
 
@@ -90,7 +90,7 @@ namespace MonkeyPlayground.Objects.Items
         /// </summary>
         public void OnDrop()
         {
-            _boxrigidbody.bodyType = _originalBodyType;
+            _boxRigidBody.bodyType = _originalBodyType;
             _boxSolidCollider.enabled = true;
         }
 
