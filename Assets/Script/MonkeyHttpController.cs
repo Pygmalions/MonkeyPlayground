@@ -7,6 +7,7 @@ using MonkeyPlayground.Data.Actions;
 using MonkeyPlayground.Objects;
 using UnityEngine;
 using RestServer;
+using UnityEngine.SceneManagement;
 
 namespace MonkeyPlayground
 {
@@ -36,6 +37,12 @@ namespace MonkeyPlayground
         // private readonly Dictionary<int, ActionData> _actions = new();
 
         private readonly MemoryCache _actions = new("ActionDataCache");
+
+        /// <summary>
+        /// This flag indicates whether the task is completed.
+        /// It is set by the banana item.
+        /// </summary>
+        public bool IsTaskCompleted { get; internal set; }
         
         /// <summary>
         /// Scan the whole scene for items and floors.
@@ -50,12 +57,15 @@ namespace MonkeyPlayground
         {
             server = GetComponent<RestServer.RestServer>();
             monkey = GetComponent<Monkey>();
+            IsTaskCompleted = false;
         }
 
         private float _actionWaitingTime = 0.0f;
         
         private void Start()
         {
+            IsTaskCompleted = false;
+            
             ScanPerceptibleObjects();
 
             _actionWaitingTime = Time.fixedDeltaTime * 2;
@@ -129,7 +139,7 @@ namespace MonkeyPlayground
         {
             return new SceneData
             {
-                IsCompleted = false,
+                IsCompleted = IsTaskCompleted,
                 Monkey = monkey.GenerateData(),
                 Items = DiscoveredItems
                     .Select(item => item.GenerateData())
@@ -160,7 +170,7 @@ namespace MonkeyPlayground
 
         private ActionData MonkeyMove(int x)
         {
-            var action = new MonkeyMovingAction
+            var action = new MonkeyMoveAction
             {
                 Id = Interlocked.Increment(ref _actionNextId),
                 GoalPosition = x,
