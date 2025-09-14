@@ -26,12 +26,14 @@ namespace MonkeyPlayground
     
         private void Update()
         {
-            // if (_monkey.ongoingAction != null) 
-            //     return;
-
-            var horizontal = Input.GetAxis("Horizontal");
-            _movementController.MoveRelatively(horizontal, null);
-
+            // Add key pressing check so that it won't interfere with REST API controller.
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || 
+                Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+            {
+                var horizontal = Input.GetAxis("Horizontal");
+                _movementController.MoveRelatively(horizontal, null);
+            }
+            
             if (Input.GetKeyDown(KeyCode.E))
             {
                 _monkey.AssignAction(new MonkeyClimbAction { Id = 0 });
