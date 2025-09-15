@@ -1,10 +1,11 @@
 using System;
-using System.Linq;
+using System.IO;
 using System.Runtime.Caching;
 using System.Threading;
 using MonkeyPlayground.Data;
-using MonkeyPlayground.Data.Actions;
 using MonkeyPlayground.Objects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using RestServer;
 using UnityEngine.SceneManagement;
@@ -24,26 +25,24 @@ namespace MonkeyPlayground
         [Tooltip("The monkey controlled by this controller.")]
         public Monkey monkey;
 
-        [Header("Scene Information")]
-        public string sceneName = "Normal Scene";
+        [Header("Scene Information")] public string sceneName = "Normal Scene";
 
-        [TextArea(3, 10)] 
-        public string sceneDescription = "This is a classical monkey-banana problem.";
+        [TextArea(3, 10)] public string sceneDescription = "This is a classical monkey-banana problem.";
 
         public Item[] DiscoveredItems { get; private set; }
 
         public Floor[] DiscoveredFloors { get; private set; }
-        
+
         /// <summary>
         /// This flag indicates whether the task is completed.
         /// It is set by the banana item.
         /// </summary>
         public bool IsTaskCompleted { get; internal set; }
-        
+
         private readonly MemoryCache _actions = new("ActionDataCache");
 
         private static int _actionNextId = 0;
-        
+
         /// <summary>
         /// Scan the whole scene for items and floors.
         /// </summary>
@@ -53,20 +52,35 @@ namespace MonkeyPlayground
             DiscoveredFloors = FindObjectsByType<Floor>(FindObjectsSortMode.None);
         }
 
-        private void Reset()
+        private void Awake()
         {
             server = GetComponent<RestServer.RestServer>();
             monkey = GetComponent<Monkey>();
             IsTaskCompleted = false;
+            
+            if (File.Exists("settings.json"))
+            {
+                var settings =
+                    JObject.Load(new JsonTextReader(
+                        new StreamReader(
+                            new FileStream("settings.json", FileMode.Open))));
+                if (settings.TryGetValue("port", out var portToken) &&
+                    portToken.Type == JTokenType.Integer)
+                {
+                    server.port = portToken.ToObject<int>();
+                }
+                if (!server.IsStarted)
+                    server.StartServer();
+            }
         }
 
         private float _actionWaitingTime;
-        
+
         private void Start()
         {
             IsTaskCompleted = false;
             _actionWaitingTime = Time.fixedDeltaTime * 2;
-            
+
             ScanPerceptibleObjects();
 
             server.EndpointCollection.RegisterEndpoint(
@@ -84,7 +98,7 @@ namespace MonkeyPlayground
             server.EndpointCollection.RegisterEndpoint(
                 HttpMethod.POST, "/monkey/climb", RequestMonkeyClimb);
 
-            server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, 
+            server.EndpointCollection.RegisterEndpoint(HttpMethod.POST,
                 "/scene/restart", RequestSceneRestart);
             server.EndpointCollection.RegisterEndpoint(
                 HttpMethod.POST, "/scene/switch", RequestSceneSwitch);
@@ -94,10 +108,10 @@ namespace MonkeyPlayground
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         }
-        
-        private void SwitchScene(string scene)
+
+        private void SwitchScene(int id)
         {
-            SceneManager.LoadScene(scene, LoadSceneMode.Single);
+            SceneManager.LoadScene(id, LoadSceneMode.Single);
         }
 
         private ActionData SearchAction(int id)

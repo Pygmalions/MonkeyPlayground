@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 838941525, guid: da2328d8242a98d48bcfe7dc205592c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
   itemName: Small Box
   itemDescription: 
   itemFunctions: []
-  itemId: 0
+  itemId: 5
 --- !u!114 &2656301319436140418
 MonoBehaviour:
   m_ObjectHideFlags: 0

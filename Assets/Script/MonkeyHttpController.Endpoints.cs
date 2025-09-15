@@ -114,8 +114,15 @@ public partial class MonkeyHttpController
     
     private void RequestSceneSwitch(RestRequest request)
     {
-        var targetSceneName = request.QueryParametersDict["name"].FirstOrDefault();
-        ThreadingHelper.Instance.ExecuteAsync(() => SwitchScene(targetSceneName));
+        var stringId = request.QueryParametersDict["id"].FirstOrDefault();
+        if (!int.TryParse(stringId, out var id))
+        {
+            request.CreateResponse().StatusError()
+                .Body("Scene ID is not a valid integer.")
+                .SendAsync();
+            return;
+        }
+        ThreadingHelper.Instance.ExecuteAsync(() => SwitchScene(id));
         request.CreateResponse().SendAsync();
     }
 }

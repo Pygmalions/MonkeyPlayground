@@ -1158,6 +1158,10 @@ PrefabInstance:
         the original one. Monkey only know what these items are when the monkey is
         close enough to them.
       objectReference: {fileID: 0}
+    - target: {fileID: 8376753509592090420, guid: 41909d6be05379f439b0a3ccfe7c63a5, type: 3}
+      propertyPath: port
+      value: 9010
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
