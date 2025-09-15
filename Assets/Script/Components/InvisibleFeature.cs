@@ -84,7 +84,11 @@ namespace MonkeyPlayground.Components
                 return originalData with
                 {
                     Name = "Unknown",
-                    Description = "An unknown object, you can only know what it is when you get closer"
+                    Description =
+                    "An unknown object, the monkey can't see it clearly unless it gets close enough. " +
+                    "Note that the size of this object is -1 for both width and height, indicating that " +
+                    "the monkey currently cannot determine its size.",
+                    Size = new SizeData { Width = -1, Height = -1 },
                 };
             }
 
