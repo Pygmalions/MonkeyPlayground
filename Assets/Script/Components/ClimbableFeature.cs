@@ -9,6 +9,8 @@ namespace MonkeyPlayground.Components
     {
         private Collider2D _collider;
 
+        private const float HeightDifferenceThreshold = 1.05f;
+        
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
@@ -27,7 +29,7 @@ namespace MonkeyPlayground.Components
             var featureTopY = _collider.bounds.max.y;
             var heightDifference = featureTopY - monkeyFeetY;
 
-            return heightDifference is <= 1.05f and > 0;
+            return heightDifference is <= HeightDifferenceThreshold and > 0;
         }
         
         public ActionResult Climb(Transform climberTransform, Collider2D climberCollider)
@@ -35,7 +37,7 @@ namespace MonkeyPlayground.Components
             var climberBottomY = climberCollider.bounds.min.y;
             var destinationY = _collider.bounds.max.y;
             var heightDifference = destinationY - climberBottomY;
-            if (heightDifference is > 1f or < 0)
+            if (heightDifference is > HeightDifferenceThreshold or < 0)
             {
                 return ActionResult.Failed(
                     "Failed to climb the object: it is either too heigh or below the monkey.");

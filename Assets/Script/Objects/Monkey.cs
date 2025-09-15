@@ -193,8 +193,7 @@ namespace MonkeyPlayground.Objects
                 grab.Result = ActionResult.Failed("There are no items nearby to pick up.");
             }
         }
-
-
+        
         public void DropItem(MonkeyDropAction drop)
         {
             if (holdingItem != null)
