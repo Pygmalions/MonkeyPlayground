@@ -6,6 +6,8 @@ namespace MonkeyPlayground.Components
     [RequireComponent(typeof(Collider2D)), DisallowMultipleComponent] 
     public class CollapsibleFeature : MonoBehaviour
     {
+        public bool enableRestore = false;
+        
         [SerializeField] private float squashFactor = 0.5f;
         [SerializeField] private float squashDuration = 0.1f;
         [SerializeField] private float restoreDuration = 0.2f;
@@ -41,8 +43,12 @@ namespace MonkeyPlayground.Components
         /// </summary>
         public void TriggerRestore()
         {
-            if (_restoreDelayCoroutine != null) StopCoroutine(_restoreDelayCoroutine);
-            _restoreDelayCoroutine = StartCoroutine(RestoreAfterDelay());
+            if (!enableRestore)
+                return;
+            if (_restoreDelayCoroutine != null) 
+                StopCoroutine(_restoreDelayCoroutine);
+            _restoreDelayCoroutine = 
+                StartCoroutine(RestoreAfterDelay());
         }
 
         private IEnumerator RestoreAfterDelay()
