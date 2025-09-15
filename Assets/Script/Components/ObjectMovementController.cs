@@ -37,7 +37,8 @@ namespace MonkeyPlayground.Components
 
         public void MoveRelatively(float offset, Action<ActionResult> onComplete)
         {
-            MoveAbsolutely(transform.position.x + offset, onComplete);
+            // Compensate for the -0.5 in alignment with the center of the tile.
+            MoveAbsolutely(transform.position.x + offset + 0.5f, onComplete);
         }
 
         public void MoveAbsolutely(float targetPosition, Action<ActionResult> onComplete)
@@ -69,7 +70,8 @@ namespace MonkeyPlayground.Components
                 var rayDirection = new Vector2(direction, 0);
                 Debug.DrawRay(rayOrigin, rayDirection * raycastDistance, Color.red);
 
-                var hit = Physics2D.Raycast(rayOrigin, rayDirection, raycastDistance, obstacleLayer);
+                var hit = Physics2D.Raycast(
+                    rayOrigin, rayDirection, raycastDistance, obstacleLayer);
                 if (hit.collider != null)
                     break;
 
@@ -88,7 +90,7 @@ namespace MonkeyPlayground.Components
 
             if (Mathf.Abs(_targetPosition - transform.position.x) > 0.1f)
             {
-                Debug.LogWarning("Failed to reach the target position due to an obstacle.");
+                Debug.Log("Failed to reach the target position due to an obstacle.");
                 ExitMovingState(
                     ActionResult.Failed(
                         "Failed to move to the specified position: path is blocked by obstacle."));

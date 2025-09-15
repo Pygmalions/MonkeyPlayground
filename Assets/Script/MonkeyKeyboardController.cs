@@ -30,25 +30,20 @@ namespace MonkeyPlayground
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || 
                 Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
             {
-                var horizontal = Input.GetAxis("Horizontal");
-                // Add 0.5 to compensate for alignment to grid.
-                _movementController.MoveRelatively(horizontal + 0.5f, null);
+                _movementController.MoveRelatively(
+                    Input.GetAxis("Horizontal"), null);
             }
             
             if (Input.GetKeyDown(KeyCode.E))
             {
-                _monkey.AssignAction(new MonkeyClimbAction { Id = 0 });
+                _monkey.ongoingAction = new MonkeyClimbAction {Id = -1};
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {
                 if (_monkey.holdingItem == null)
-                {
-                    _monkey.AssignAction(new MonkeyGrabAction { Id = 0 });
-                }
+                    _monkey.ongoingAction = new MonkeyGrabAction {Id = -1};
                 else
-                {
-                    _monkey.AssignAction(new MonkeyDropAction { Id = 0 });
-                }
+                    _monkey.ongoingAction = new MonkeyDropAction {Id = -1};
             }
         }
     }

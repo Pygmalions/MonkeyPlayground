@@ -1,26 +1,19 @@
 using System;
 using MonkeyPlayground.Data;
-using MonkeyPlayground.Objects;
 using UnityEngine;
 
 namespace MonkeyPlayground.Components
 {
-    [RequireComponent(typeof(Item), typeof(Collider2D)),
-     DisallowMultipleComponent]
+    [RequireComponent(typeof(Collider2D)), DisallowMultipleComponent]
     public class ClimbableFeature : MonoBehaviour
     {
         private Collider2D _collider;
-        
-        private void Awake()
-        {
-            Reset();
-        }
 
-        private void Reset()
+        private void Awake()
         {
             _collider = GetComponent<Collider2D>();
         }
-        
+
         /// <summary>
         /// Check whether the climber can select this climbable object to climb.
         /// The top of this object must not be lower than the feet of the climber,
@@ -37,36 +30,26 @@ namespace MonkeyPlayground.Components
             return heightDifference is <= 1.05f and > 0;
         }
         
-        /// <summary>
-        /// 带有高度检查的攀爬逻辑
-        /// </summary>
-        /// <param name="climberTransform">攀爬者的Transform</param>
-        /// <returns>返回一个ActionResult，表示成功或失败</returns>
-        public ActionResult Climb(Transform climberTransform)
+        public ActionResult Climb(Transform climberTransform, Collider2D climberCollider)
         {
-            // var featureCollider = GetComponent<Collider2D>();
-            var climberCollider = climberTransform.GetComponent<Collider2D>();
-
-            if (_collider == null || climberCollider == null)
+            var climberBottomY = climberCollider.bounds.min.y;
+            var destinationY = _collider.bounds.max.y;
+            var heightDifference = destinationY - climberBottomY;
+            if (heightDifference is > 1f or < 0)
             {
-                return ActionResult.Failed("Missing collision body, unable to calculate climbing.");
+                return ActionResult.Failed(
+                    "Failed to climb the object: it is either too heigh or below the monkey.");
             }
-
-            var monkeyFeetY = climberCollider.bounds.min.y;
-            var featureTopY = _collider.bounds.max.y;
-            var heightDifference = featureTopY - monkeyFeetY;
-
-            if (heightDifference > 1f || heightDifference < 0)
+            
+            var destinationX = climberTransform.position.x;
+            destinationX = MathF.Max(destinationX, _collider.bounds.min.x + 0.1f);
+            destinationX = MathF.Min(destinationX, _collider.bounds.max.x - 0.1f);
+            
+            climberTransform.position = climberTransform.position with
             {
-                return ActionResult.Failed("It’s too far to the top to climb up!");
-            }
-
-            var climberHeight = climberCollider.bounds.size.y;
-            climberTransform.position = new Vector3(
-                transform.position.x,
-                featureTopY + climberHeight * 0.5f,
-                climberTransform.position.z
-            );
+                x = destinationX,
+                y = destinationY
+            };
 
             return ActionResult.Succeeded("Climbed successfully!");
         }

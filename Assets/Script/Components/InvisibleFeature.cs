@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MonkeyPlayground.Components
 {
-    [RequireComponent(typeof(Item), typeof(SpriteRenderer)),
+    [RequireComponent(typeof(SpriteRenderer)),
      DisallowMultipleComponent]
     public class InvisibleFeature : MonoBehaviour
     {
@@ -21,7 +21,7 @@ namespace MonkeyPlayground.Components
         {
             _item = GetComponent<Item>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            var monkey = Object.FindFirstObjectByType<Monkey>();
+            var monkey = FindFirstObjectByType<Monkey>();
             if (monkey != null)
             {
                 _monkeyTransform = monkey.transform;
@@ -29,7 +29,7 @@ namespace MonkeyPlayground.Components
             else
             {
                 Debug.LogError("No monkey found in the scene, ObscurableItem doesn't work!", this);
-                enabled = false; //没有猴子这个脚本没必要工作吧
+                enabled = false;
                 return;
             }
 
