@@ -172,6 +172,13 @@ namespace MonkeyPlayground.Objects
 
         public void GrabItem(MonkeyGrabAction grab)
         {
+            if (holdingItem != null)
+            {
+                grab.Result = ActionResult.Failed(
+                    "The monkey is already holding an item, and cannot pick up another one before dropping it.");
+                return;
+            }
+            
             var graspable = FindNearestGraspableObject();
             if (graspable != null)
             {
