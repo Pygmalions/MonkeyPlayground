@@ -30,13 +30,13 @@ namespace MonkeyPlayground.Objects
         [MaybeNull, ReadOnly] public Item holdingItem;
 
         private ObjectMovementController _movementController;
-        private Collider2D _collider2D;
+        private Collider2D _monkeyCollider;
         private PositionData _latestPosition;
         private SizeData _latestSize;
 
         private void Awake()
         {
-            _collider2D = GetComponent<BoxCollider2D>();
+            _monkeyCollider = GetComponent<BoxCollider2D>();
             _movementController = GetComponent<ObjectMovementController>();
         }
 
@@ -116,8 +116,8 @@ namespace MonkeyPlayground.Objects
         /// <returns>Interactable item, or null if not found.</returns>
         public GraspableFeature FindNearestGraspableObject()
         {
-            var center = _collider2D.bounds.center +
-                         Vector3.up * _collider2D.bounds.size.y / 2;
+            var center = _monkeyCollider.bounds.center +
+                         Vector3.up * _monkeyCollider.bounds.size.y / 2;
             var hitColliders = Physics2D.OverlapBoxAll(
                 center, interactionRange, 0f);
             if (hitColliders.Length == 0)
@@ -165,7 +165,7 @@ namespace MonkeyPlayground.Objects
         {
             var featureToClimb = FindHighestClimbableObject();
             if (featureToClimb != null)
-                climb.Result = featureToClimb.Climb(transform, _collider2D);
+                climb.Result = featureToClimb.Climb(transform, _monkeyCollider);
             else
                 climb.Result = ActionResult.Failed("There are no climbable boxes or floors nearby.");
         }
@@ -177,8 +177,7 @@ namespace MonkeyPlayground.Objects
             {
                 var itemCollider = graspable.GetComponent<Collider2D>();
                 var floatingPositionY = 
-                    _collider2D.bounds.size.y * 0.4f +
-                    itemCollider.bounds.size.y;
+                    (_monkeyCollider.bounds.size.y + itemCollider.bounds.size.y) / 2;
                 graspable.OnPickup();
 
                 if (graspable.GetComponent<Item>() is not { } graspableItem)
@@ -203,8 +202,12 @@ namespace MonkeyPlayground.Objects
                 if (holdingItem.GetComponent<GraspableFeature>() is not { } graspable)
                     throw new Exception("Holding item does not have a GraspableFeature component.");
                 holdingItem.transform.SetParent(null);
-
                 graspable.OnDrop();
+                holdingItem.transform.position = holdingItem.transform.position with
+                {
+                    y = _monkeyCollider.bounds.center.y + 
+                        holdingItem.transform.localScale.y / 2
+                };
 
                 holdingItem = null;
                 drop.Result = ActionResult.Succeeded("The held item has been successfully dropped.");
