@@ -85,16 +85,19 @@ namespace MonkeyPlayground
                 HttpMethod.POST, "/monkey/climb", RequestMonkeyClimb);
 
             server.EndpointCollection.RegisterEndpoint(HttpMethod.POST, 
-                "/scene/restart", request =>
-            {
-                ThreadingHelper.Instance.ExecuteAsync(RestartScene);
-                request.CreateResponse().SendAsync();
-            });
+                "/scene/restart", RequestSceneRestart);
+            server.EndpointCollection.RegisterEndpoint(
+                HttpMethod.POST, "/scene/switch", RequestSceneSwitch);
         }
 
         private void RestartScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        }
+        
+        private void SwitchScene(string scene)
+        {
+            SceneManager.LoadScene(scene, LoadSceneMode.Single);
         }
 
         private ActionData SearchAction(int id)

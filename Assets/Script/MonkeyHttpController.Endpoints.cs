@@ -105,4 +105,17 @@ public partial class MonkeyHttpController
         DispatchAction(action);
         request.CreateResponse().BodyJson(action).SendAsync();
     }
+
+    private void RequestSceneRestart(RestRequest request)
+    {
+        ThreadingHelper.Instance.ExecuteAsync(RestartScene);
+        request.CreateResponse().SendAsync();
+    }
+    
+    private void RequestSceneSwitch(RestRequest request)
+    {
+        var targetSceneName = request.QueryParametersDict["name"].FirstOrDefault();
+        ThreadingHelper.Instance.ExecuteAsync(() => SwitchScene(targetSceneName));
+        request.CreateResponse().SendAsync();
+    }
 }
