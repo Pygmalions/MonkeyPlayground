@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: fb80cf34e16b47a196c50b500fb7e949
+timeCreated: 1664630392
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/Helper/HttpRequestRedirectHelper.cs
+  uploadId: 751948

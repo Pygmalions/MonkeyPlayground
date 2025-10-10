@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 7e73bd515fc944b591328b6965e90783
+timeCreated: 1681312008
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/AutoEndpoints/AttributeAEInspector.cs
+  uploadId: 751948

@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 98ece8496eb440f78b37bc747604832c
+timeCreated: 1654422306
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/VisualScripting/Nodes/SetHeaderEnumNodeDescriptor.cs
+  uploadId: 751948

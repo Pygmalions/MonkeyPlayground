@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 057ad2323d4c4ede8f2d492485086b9a
+timeCreated: 1654395603
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/VisualScripting/Nodes/RemoveHeaderEnumNode.cs
+  uploadId: 751948

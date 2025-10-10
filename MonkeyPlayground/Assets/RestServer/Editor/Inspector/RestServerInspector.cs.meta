@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 8acfac50c9c14e1993af91844dd32803
+timeCreated: 1653741514
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/Inspector/RestServerInspector.cs
+  uploadId: 751948

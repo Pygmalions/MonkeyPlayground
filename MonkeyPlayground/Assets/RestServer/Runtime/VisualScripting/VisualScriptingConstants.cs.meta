@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: c4b2c26aa3d4450f85034a7f91f86b1e
+timeCreated: 1654193902
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/VisualScripting/VisualScriptingConstants.cs
+  uploadId: 751948

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/1-SingleBanana-Easy.unity
+    guid: 3f286b79ca12ed74b8140e5869ed6ebe
+  - enabled: 1
+    path: Assets/Scenes/2-SingleBanana-Medium.unity
+    guid: 57fb1ef6b8243554e8c4201194472643
+  - enabled: 1
+    path: Assets/Scenes/3-SingleBanana-Hard.unity
+    guid: 4ea705988223dd34bb31e57062fa1d29
+  - enabled: 1
+    path: Assets/Scenes/4-DualBanana-Easy.unity
+    guid: a80cae9a3cc73164c95ef280bdede353
+  - enabled: 1
+    path: Assets/Scenes/5-DualBanana-Medium.unity
+    guid: d092f8c69a6b14f44a2b569a1db316e5
+  - enabled: 1
+    path: Assets/Scenes/6-DualBanana-Medium-Different.unity
+    guid: a7b656e7b2b906a4fbec7a5f72a796a7
+  - enabled: 1
+    path: Assets/Scenes/7-Invisible-Easy.unity
+    guid: 73d0a076e6021244887e80f12f67e806
+  - enabled: 1
+    path: Assets/Scenes/8-Invisible-Medium.unity
+    guid: c924609576fe5bd4fb9ebde59a87da6a
+  - enabled: 1
+    path: Assets/Scenes/9-Invisible-Hard.unity
+    guid: 044793b80b125de4dbe1c17b02211940
+  - enabled: 1
+    path: Assets/Scenes/10-Squashable-Easy.unity
+    guid: 64d96c6a604796e4ebaa813f25a329e3
+  - enabled: 1
+    path: Assets/Scenes/11-Squashable-Medium.unity
+    guid: 7423f7dcc2ea20e4ba38d6e77fbe197e
+  - enabled: 1
+    path: Assets/Scenes/12-Squashable-Hard.unity
+    guid: 7f07ae69dbb965741bb7ae798254b440
+  - enabled: 1
+    path: Assets/Scenes/13-Comprehensive-Easy.unity
+    guid: 3ae283f351736124ca3502a9d4402ef9
+  - enabled: 1
+    path: Assets/Scenes/14-Comprehensive-Medium.unity
+    guid: 69da3d951e9613044b9d625b2a923699
+  - enabled: 1
+    path: Assets/Scenes/15-Comprehensive-Hard.unity
+    guid: b27dc45e97e48364e9040ce9744a3e7f
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_UseUCBPForAssetBundles: 0

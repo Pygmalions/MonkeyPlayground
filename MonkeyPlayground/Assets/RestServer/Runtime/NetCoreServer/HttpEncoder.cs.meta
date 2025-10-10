@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 3267478dc8bb474eb0c648fc09c06ffb
+timeCreated: 1638608975
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/NetCoreServer/HttpEncoder.cs
+  uploadId: 751948

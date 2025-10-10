@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: f8e4f488554848689f84bf73290d0b3a
+timeCreated: 1668916487
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/MultipartFormData/SimpleHeaderValueParser.cs
+  uploadId: 751948

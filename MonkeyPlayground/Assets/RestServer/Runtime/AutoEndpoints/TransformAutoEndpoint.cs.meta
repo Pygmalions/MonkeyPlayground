@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 103dc4b18b26418ead41eb3dfeb3436c
+timeCreated: 1654524693
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/AutoEndpoints/TransformAutoEndpoint.cs
+  uploadId: 751948

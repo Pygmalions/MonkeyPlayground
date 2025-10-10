@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 0f889cdc80d3415eaabe4cd6488fd402
+timeCreated: 1655561638
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/AutoEndpoints/MaterialAutoEndpointImpl.cs
+  uploadId: 751948

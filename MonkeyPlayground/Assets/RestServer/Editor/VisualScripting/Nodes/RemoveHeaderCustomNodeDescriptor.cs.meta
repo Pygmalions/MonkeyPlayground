@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 8ca707aa156f4ab2baa032af79791e55
+timeCreated: 1654397807
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/VisualScripting/Nodes/RemoveHeaderCustomNodeDescriptor.cs
+  uploadId: 751948

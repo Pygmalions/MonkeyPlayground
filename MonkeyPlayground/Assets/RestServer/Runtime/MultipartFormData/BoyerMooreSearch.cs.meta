@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 527b6c47d07541b0b4c9b6e3ffbd04a1
+timeCreated: 1668940212
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Runtime/MultipartFormData/BoyerMooreSearch.cs
+  uploadId: 751948

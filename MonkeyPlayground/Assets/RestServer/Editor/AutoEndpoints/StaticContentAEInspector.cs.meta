@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: bc08a0c0940845b291ad4db535d99428
+timeCreated: 1663603580
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/AutoEndpoints/StaticContentAEInspector.cs
+  uploadId: 751948

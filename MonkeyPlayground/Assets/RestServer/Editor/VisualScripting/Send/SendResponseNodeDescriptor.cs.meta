@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 5de99e67e3a1492eaf143ab8a11335de
+timeCreated: 1654396596
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214834
+  packageName: WebSocket, REST and HTTP Server
+  packageVersion: 1.14.3
+  assetPath: Assets/de.bearo.restserver/Editor/VisualScripting/Send/SendResponseNodeDescriptor.cs
+  uploadId: 751948

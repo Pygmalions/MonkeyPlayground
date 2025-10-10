@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Terrain
+  - Box
+  - Monkey
+  - Banana
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3192157119
+    locked: 0
+  - name: Terrain
+    uniqueID: 1850021193
+    locked: 0
+  - name: Item
+    uniqueID: 2188336329
+    locked: 0
+  - name: Monkey
+    uniqueID: 110293077
+    locked: 0
+  - name: HoldingItem
+    uniqueID: 2191120919
+    locked: 0
+  m_RenderingLayers:
+  - Default
