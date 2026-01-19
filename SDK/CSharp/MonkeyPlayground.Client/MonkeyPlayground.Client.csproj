@@ -6,8 +6,9 @@
         <Nullable>enable</Nullable>
         <Title>MonkeyPlayground Client</Title>
         <Authors>Pygmalions</Authors>
-        <Description>Client for MonkeyPlayground.</Description>
+        <Description>Client for Monkey Playground simulator.</Description>
         <LangVersion>preview</LangVersion>
+        <Version>0.1.0-dev01052158</Version>
     </PropertyGroup>
 
     <ItemGroup>
