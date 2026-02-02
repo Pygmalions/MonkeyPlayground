@@ -14,34 +14,33 @@ public class PlaygroundClient
 {
     private readonly RestClient _client;
 
-    public AsyncRetryPolicy RetryPolicy { get; set; }
-    
-    public string Title
-    {
-        get;
-        set
-        {
-            field = value;
-            _client.Post(new RestRequest("/display/title")
-                .AddStringBody(value, ContentType.Plain));
-        }
-    } = "";
+    public ResiliencePipeline Pipeline { get; init; }
 
-    public string Description
+    public async Task DisplayWindowTitle(string title)
     {
-        get;
-        set
+        await Pipeline.ExecuteAsync(async cancellation =>
         {
-            field = value;
-            _client.Post(new RestRequest("/display/description")
-                .AddStringBody(value, ContentType.Plain));
-        }
-    } = "";
+            await _client.PostAsync(new RestRequest("/display/title")
+                .AddStringBody(title, ContentType.Plain), cancellation);
+        }, CancellationToken.None);
+    }
 
-    public async Task DisplayContent(string content)
+    public async Task DisplayWindowDescription(string description)
     {
-        await _client.PostAsync(new RestRequest("/display/content")
-            .AddStringBody(content, ContentType.Plain));
+        await Pipeline.ExecuteAsync(async cancellation =>
+        {
+            await _client.PostAsync(new RestRequest("/display/description")
+                .AddStringBody(description, ContentType.Plain), cancellation);
+        }, CancellationToken.None);
+    }
+
+    public async Task DisplayWindowContent(string content)
+    {
+        await Pipeline.ExecuteAsync(async cancellation =>
+        {
+            await _client.PostAsync(new RestRequest("/display/content")
+                .AddStringBody(content, ContentType.Plain), cancellation);
+        }, CancellationToken.None);
     }
 
     public PlaygroundClient(Uri baseUrl)
@@ -53,39 +52,41 @@ public class PlaygroundClient
                 options.Converters.Add(new JsonStringEnumConverter());
                 config.UseSystemTextJson(options);
             });
-        RetryPolicy = Policy.Handle<HttpRequestException>()
-            .RetryAsync(3, async (_, times, _) =>
+        Pipeline = new ResiliencePipelineBuilder()
+            .AddRetry(new RetryStrategyOptions
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(100 * times));
-            });
+                MaxRetryAttempts = 3,
+                BackoffType = DelayBackoffType.Linear,
+                Delay = TimeSpan.FromMilliseconds(100),
+            })
+            .Build();
     }
 
     public async Task RestartScene()
     {
-        await RetryPolicy.ExecuteAsync(async cancellation =>
-        {
-            await _client.PostAsync(new RestRequest("/scene/restart"), cancellation);
-        }, CancellationToken.None);
+        await Pipeline.ExecuteAsync(
+            async cancellation => { await _client.PostAsync(new RestRequest("/scene/restart"), cancellation); },
+            CancellationToken.None);
     }
-    
+
     public async Task SwitchScene(int sceneId)
     {
-        await RetryPolicy.ExecuteAsync(async cancellation =>
+        await Pipeline.ExecuteAsync(async cancellation =>
         {
             await _client.PostAsync(new RestRequest("/scene/switch")
-                .AddQueryParameter("id",  sceneId), cancellation);
+                .AddQueryParameter("id", sceneId), cancellation);
         }, CancellationToken.None);
     }
 
     public async Task<SceneData> GetSceneStatus()
     {
-        return await RetryPolicy.ExecuteAsync(async cancellation => await _client.GetAsync<SceneData>(
+        return await Pipeline.ExecuteAsync(async cancellation => await _client.GetAsync<SceneData>(
             new RestRequest("/scene/status"), cancellation), CancellationToken.None);
     }
 
     public async Task<JsonObject> GetSceneDescription()
     {
-        return await RetryPolicy.ExecuteAsync(async cancellation =>
+        return await Pipeline.ExecuteAsync(async cancellation =>
         {
             var response = await _client.GetAsync(
                 new RestRequest("/scene/description"), cancellation);
@@ -97,8 +98,8 @@ public class PlaygroundClient
     {
         var request = new RestRequest("/action/status")
             .AddQueryParameter("id", actionId);
-        var response = await RetryPolicy.ExecuteAsync(async cancellation =>
-                await _client.GetAsync(request, cancellation), CancellationToken.None);
+        var response = await Pipeline.ExecuteAsync(async cancellation =>
+            await _client.GetAsync(request, cancellation), CancellationToken.None);
         var data = JsonNode.Parse(response.Content!)!.AsObject();
         return ParseActionData(data);
     }
@@ -107,7 +108,7 @@ public class PlaygroundClient
     {
         var request = new RestRequest("/monkey/move")
             .AddQueryParameter("position", position);
-        var response = (await RetryPolicy.ExecuteAsync(async cancellation =>
+        var response = (await Pipeline.ExecuteAsync(async cancellation =>
             await _client.PostAsync<MonkeyMoveAction>(request, cancellation), CancellationToken.None))!;
         if (response.IsCompleted())
             return response;
@@ -123,7 +124,7 @@ public class PlaygroundClient
     public async Task<MonkeyGrabAction> Grab()
     {
         var request = new RestRequest("/monkey/grab");
-        var response = (await RetryPolicy.ExecuteAsync(async cancellation =>
+        var response = (await Pipeline.ExecuteAsync(async cancellation =>
             await _client.PostAsync<MonkeyGrabAction>(request, cancellation), CancellationToken.None))!;
         if (response.IsCompleted())
             return response;
@@ -139,7 +140,7 @@ public class PlaygroundClient
     public async Task<MonkeyDropAction> Drop()
     {
         var request = new RestRequest("/monkey/drop");
-        var response = (await RetryPolicy.ExecuteAsync(async cancellation =>
+        var response = (await Pipeline.ExecuteAsync(async cancellation =>
             await _client.PostAsync<MonkeyDropAction>(request, cancellation), CancellationToken.None))!;
         if (response.IsCompleted())
             return response;
@@ -155,7 +156,7 @@ public class PlaygroundClient
     public async Task<MonkeyClimbUpAction> ClimbUp()
     {
         var request = new RestRequest("/monkey/climb-up");
-        var response = (await RetryPolicy.ExecuteAsync(async cancellation =>
+        var response = (await Pipeline.ExecuteAsync(async cancellation =>
             await _client.PostAsync<MonkeyClimbUpAction>(request, cancellation), CancellationToken.None))!;
         if (response.IsCompleted())
             return response;
@@ -167,11 +168,11 @@ public class PlaygroundClient
                 return (MonkeyClimbUpAction)result;
         }
     }
-    
+
     public async Task<MonkeyClimbDownAction> ClimbDown()
     {
         var request = new RestRequest("/monkey/climb-down");
-        var response = (await RetryPolicy.ExecuteAsync(async cancellation =>
+        var response = (await Pipeline.ExecuteAsync(async cancellation =>
             await _client.PostAsync<MonkeyClimbDownAction>(request, cancellation), CancellationToken.None))!;
         if (response.IsCompleted())
             return response;
